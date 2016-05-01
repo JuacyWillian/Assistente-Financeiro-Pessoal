@@ -5,51 +5,50 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Conta {
-    
+
     private int id;
-    
+
     private String titulo;
     private String descricao;
-    
+
     private ContaCategoria categoria;
-    
+
     private BigDecimal valor;
     private int parcelas;
-    
+
     private LocalDate dataCriacao;
     private LocalDate dataVencimento;
-    
+
     private boolean quitado;
 
     private ContaTipo tipo;
 
-    
-    public enum ContaTipo{
+    public enum ContaTipo {
         RECEITA, DESPESA
     }
-    
+
     public Conta() {
     }
 
     public Conta(
             String titulo, String descricao, ContaCategoria categoria, ContaTipo tipo, BigDecimal valor,
             int parcelas, LocalDate dataCriacao, LocalDate dataVencimento, boolean quitado) {
-        
+
         this.titulo = titulo;
         this.descricao = descricao;
-        
+
         this.tipo = tipo;
         this.categoria = categoria;
-        
+
         this.valor = valor;
         this.parcelas = parcelas;
-        
+
         this.dataCriacao = dataCriacao;
         this.dataVencimento = dataVencimento;
-        
+
         this.quitado = quitado;
     }
-    
+
     public int getId() {
         return id;
     }

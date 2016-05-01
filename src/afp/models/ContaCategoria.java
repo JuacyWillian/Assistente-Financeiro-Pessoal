@@ -3,7 +3,7 @@ package afp.models;
 import java.util.Objects;
 
 public class ContaCategoria {
-    
+
     private String nome;
     private String descricao;
 
@@ -61,5 +61,5 @@ public class ContaCategoria {
     public String toString() {
         return "ContaCategoria{" + "nome=" + nome + ", descricao=" + descricao + '}';
     }
-    
+
 }

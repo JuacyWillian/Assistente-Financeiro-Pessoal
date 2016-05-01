@@ -2,9 +2,8 @@ package afp.utils;
 
 import junit.framework.TestCase;
 
+public class ValidatorTest extends TestCase {
 
-public class ValidatorTest extends TestCase{
-    
     @Override
     public void setUp() {
     }
@@ -28,5 +27,5 @@ public class ValidatorTest extends TestCase{
         String cpf = "12345678900";
         assertEquals(false, Validator.validateCPF(cpf));
     }
-    
+
 }

@@ -3,13 +3,13 @@ package afp.models;
 import java.util.Objects;
 
 public class UserModel {
-    
+
     private int id;
     private String nome;
     private String email;
     private String password;
     private String telefone;
-    
+
     public UserModel() {
     }
 
@@ -99,7 +99,5 @@ public class UserModel {
     public String toString() {
         return "UserModel{" + "nome=" + nome + ", email=" + email + '}';
     }
-    
-    
-    
+
 }

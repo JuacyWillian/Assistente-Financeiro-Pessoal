@@ -1,6 +1,5 @@
 package afp;
 
-import afp.models.UserModel;
 import afp.services.UserService;
 
 public class AssistenteFinanceiroPessoal {
@@ -26,7 +25,6 @@ public class AssistenteFinanceiroPessoal {
         
         System.out.println(app.createUser("Juacy Willian", "juacy.willian@gmail.com", "Stella.2010"));
         System.out.println(app.login("Juacy Willian", "juacy.willian@gmail.com", "Stella.2010"));
-        
     }
 
     public boolean login(String juacy_Willian, String juacywilliangmailcom, String stella2010) {

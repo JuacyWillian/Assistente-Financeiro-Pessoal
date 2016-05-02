@@ -7,13 +7,9 @@ public enum NavigateEnum {
     REGISTRA_CATEGORIA("afp/gui/views/RegistraCategoriaScreen.fxml"),
     REGISTRA_CONTA("afp/gui/views/RegistraContaScreen.fxml");
 
-    private final String screenPath;
+    public final String path;
 
-    NavigateEnum(String path) {
-        screenPath = path;
-    }
-
-    String getScreenPath() {
-        return screenPath;
+    private NavigateEnum(String path) {
+        this.path = path;
     }
 }

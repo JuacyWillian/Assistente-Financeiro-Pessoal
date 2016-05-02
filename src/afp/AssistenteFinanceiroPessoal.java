@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 
 public class AssistenteFinanceiroPessoal extends Application {
 
-    private static AssistenteFinanceiroPessoal instance;
     private ResourceBundle bundle;
     private Stage primaryStage;
 

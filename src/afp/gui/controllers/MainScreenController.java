@@ -1,5 +1,6 @@
 package afp.gui.controllers;
 
+import afp.gui.views.AppNavigator;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;

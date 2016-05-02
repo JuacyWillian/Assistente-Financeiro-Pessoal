@@ -15,38 +15,31 @@ import javafx.stage.Stage;
 public class AssistenteFinanceiroPessoal extends Application {
 
     private static AssistenteFinanceiroPessoal instance;
-
-    public static AssistenteFinanceiroPessoal getInstance() {
-        if (instance == null) {
-            instance = new AssistenteFinanceiroPessoal();
-        }
-        return instance;
-    }
     private ResourceBundle bundle;
     private Stage primaryStage;
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        this.primaryStage = stage;
-        bundle = ResourceBundle.getBundle("afp/i18n/messages", new Locale("pt", "BR"));
-        setScene(NavigateEnum.LOGIN);
+    
+    
+    public static void main(String[] args) {
+        launch(args);
     }
 
-    public ResourceBundle getBundle() {
-        return bundle;
+    @Override
+    public void start(Stage stage) throws Exception{
+        this.primaryStage = stage;
+        bundle = ResourceBundle.getBundle("afp/i18n/messages", new Locale("pt", "BR"));
+        setScene(NavigateEnum.PRINCIPAL);
     }
 
     public void setScene(NavigateEnum screen){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(screen.path), bundle);
-            
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("afp/gui/views/MainScreen.fxml"), bundle);
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
             
-        } catch (IOException ex) {
-            Logger.getLogger(AssistenteFinanceiroPessoal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             System.out.println("Deu erro na troca de tela!!");
+            Logger.getLogger(AssistenteFinanceiroPessoal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

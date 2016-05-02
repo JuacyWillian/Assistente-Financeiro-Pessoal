@@ -21,6 +21,6 @@ public class AppNavigator {
     }
 
     public void navigateTo(NavigateEnum screen) {
-        app.setScene(screen);
+//        app.setScene(screen);
     }
 }

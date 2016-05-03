@@ -5,23 +5,51 @@
  */
 package afp.gui.controller;
 
+import afp.gui.view.Navigator;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
-/**
- * FXML Controller class
- *
- * @author jw
- */
 public class CadastraUsuarioController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private FlowPane myPane;
+    @FXML
+    private TextField txNome;
+    @FXML
+    private TextField txEmail;
+    @FXML
+    private PasswordField txSenha;
+    @FXML
+    private PasswordField txReSenha;
+    @FXML
+    private Button btnCancelar;
+    @FXML
+    private Button btnCadastrar;
+    private ResourceBundle bundle;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        bundle = rb;
+        Navigator.getInstance().setContentParent(myPane);
+    }
+
+    @FXML
+    private void actionCancelar(ActionEvent event) {
+        Stage stg = (Stage) myPane.getScene().getWindow();
+        stg.close();
+    }
+
+    @FXML
+    private void actionCadastrar(ActionEvent event) {
+    }
+
 }

@@ -15,7 +15,8 @@ public class Navigator {
     private Pane contentParent;
     private static Navigator instance;
 
-    private Navigator() {}
+    private Navigator() {
+    }
 
     public static Navigator getInstance() {
         if (instance == null) {

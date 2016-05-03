@@ -25,7 +25,7 @@ public class LoginController implements Initializable {
     private Label lbError;
     @FXML
     private Pane myPane;
-    
+
     private ResourceBundle bundle;
 
     @Override
@@ -43,7 +43,7 @@ public class LoginController implements Initializable {
 //                todo: remember action
             }
             Navigator.getInstance().navigateTo(NavigateEnum.PRINCIPAL, bundle);
-            
+
         } else {
             lbError.setVisible(true);
         }
@@ -56,11 +56,11 @@ public class LoginController implements Initializable {
 
     @FXML
     private void onLinkRegister(ActionEvent event) {
-            Navigator.getInstance().navigateTo(NavigateEnum.REGISTRA_USUARIO, bundle);
+        Navigator.getInstance().navigateTo(NavigateEnum.REGISTRA_USUARIO, bundle);
     }
 
     @FXML
     private void onLinkResetPassword(ActionEvent event) {
-            Navigator.getInstance().navigateTo(NavigateEnum.RECUPERA_SENHA, bundle);
+        Navigator.getInstance().navigateTo(NavigateEnum.RECUPERA_SENHA, bundle);
     }
 }

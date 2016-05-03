@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package afp.gui.controller;
+package afp.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author jw
  */
-public class CadastraCategoriaController implements Initializable {
+public class CadastraUsuarioController implements Initializable {
 
     /**
      * Initializes the controller class.

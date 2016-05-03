@@ -24,18 +24,17 @@ public class AssistenteFinanceiroPessoal extends Application {
     public void start(Stage stage) throws Exception {
         this.primaryStage = stage;
         bundle = ResourceBundle.getBundle("afp/i18n/messages", new Locale("pt", "BR"));
-        setScene(NavigateEnum.PRINCIPAL);
+        setScene(NavigateEnum.LOGIN);
     }
 
     public void setScene(NavigateEnum screen) {
         try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("afp/gui/views/MainScreen.fxml"), bundle);
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(screen.path), bundle);
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
 
         } catch (Exception ex) {
-            System.out.println("Deu erro na troca de tela!!");
             Logger.getLogger(AssistenteFinanceiroPessoal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

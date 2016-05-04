@@ -30,8 +30,8 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Navigator.getInstance().setContentParent(myPane);
         bundle = rb;
+        Navigator.getInstance().setContentParent(myPane);
     }
 
     @FXML

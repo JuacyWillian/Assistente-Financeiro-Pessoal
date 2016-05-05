@@ -1,4 +1,4 @@
-package afp.services;
+package afp.service;
 
 public class UserService {
 

@@ -1,7 +1,7 @@
 package afp.gui.controller;
 
 import afp.gui.view.Navigator;
-import afp.utils.NavigateEnum;
+import afp.util.NavigateEnum;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

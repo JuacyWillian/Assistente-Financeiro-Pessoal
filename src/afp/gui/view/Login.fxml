@@ -24,7 +24,7 @@
                 <Insets bottom="5.0" top="5.0" />
             </FlowPane.margin>
         </Separator>
-        <Label prefWidth="200.0" text="%gui.login.username">
+        <Label prefWidth="200.0" text="%gui.login.email">
             <FlowPane.margin>
                 <Insets top="5.0" />
             </FlowPane.margin>

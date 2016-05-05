@@ -1,4 +1,4 @@
-package afp.models;
+package afp.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

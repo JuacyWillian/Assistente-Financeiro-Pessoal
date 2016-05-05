@@ -1,4 +1,4 @@
-package afp.models;
+package afp.model;
 
 import java.util.Objects;
 

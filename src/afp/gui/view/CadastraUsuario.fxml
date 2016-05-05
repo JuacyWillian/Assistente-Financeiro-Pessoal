@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<FlowPane alignment="CENTER" columnHalignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" 
+<FlowPane fx:id="myPane" alignment="CENTER" columnHalignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" 
           minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" 
-          xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" 
-          fx:controller="afp.gui.controller.CadastraUsuarioController" fx:id="myPane">
+          xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
+          fx:controller="afp.gui.controller.CadastraUsuarioController">
     <children>
         <Label text="%gui.cadastra.usuario.titulo">
             <font>
@@ -74,5 +74,13 @@
                 <Insets top="20.0" />
             </FlowPane.margin>
         </ButtonBar>
+        <Label fx:id="lbError" alignment="CENTER" prefWidth="500.0" textAlignment="CENTER" textFill="#5b0101">
+            <font>
+                <Font name="Ubuntu" size="13.0" />
+            </font>
+            <FlowPane.margin>
+                <Insets top="30.0" />
+            </FlowPane.margin>
+        </Label>
     </children>
 </FlowPane>

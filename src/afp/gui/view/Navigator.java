@@ -1,6 +1,7 @@
 package afp.gui.view;
 
-import afp.utils.NavigateEnum;
+import afp.util.NavigateEnum;
+import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,14 +28,13 @@ public class Navigator {
 
     public void navigateTo(NavigateEnum s, ResourceBundle rb) {
         try {
-
-            System.out.println(s.path);
-            Parent p = FXMLLoader.load(getClass().getClassLoader().getResource(s.path), rb);
+            Parent p = FXMLLoader.load(getClass().getClassLoader().getResource(s.getPath()), rb);
             Stage stage = (Stage) contentParent.getScene().getWindow();
             stage.setScene(new Scene(p));
-
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Logger.getLogger(Navigator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
         }
     }
 

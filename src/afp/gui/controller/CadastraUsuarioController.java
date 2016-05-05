@@ -1,22 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package afp.gui.controller;
 
 import afp.gui.view.Navigator;
+import afp.util.NavigateEnum;
+import afp.util.Validator;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class CadastraUsuarioController implements Initializable {
 
@@ -31,9 +28,12 @@ public class CadastraUsuarioController implements Initializable {
     @FXML
     private PasswordField txReSenha;
     @FXML
+    private Label lbError;
+    @FXML
     private Button btnCancelar;
     @FXML
     private Button btnCadastrar;
+
     private ResourceBundle bundle;
 
     @Override
@@ -50,6 +50,20 @@ public class CadastraUsuarioController implements Initializable {
 
     @FXML
     private void actionCadastrar(ActionEvent event) {
-    }
 
+        String nome = txNome.getText();
+        String email = txEmail.getText();
+        String senha = txSenha.getText();
+        String resenha = txReSenha.getText();
+
+        if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || resenha.isEmpty()) {
+            lbError.setText(bundle.getString("error.fieldempty"));
+        } else if (!Validator.validateEmail(email)) {
+            lbError.setText(bundle.getString("error.invalidemail"));
+        } else if (!senha.equals(resenha)) {
+            lbError.setText(bundle.getString("error.incomplatiblepasswords"));
+        } else {
+            Navigator.getInstance().navigateTo(NavigateEnum.PRINCIPAL, bundle);
+        }
+    }
 }

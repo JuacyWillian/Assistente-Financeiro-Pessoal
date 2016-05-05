@@ -1,4 +1,4 @@
-package afp.utils;
+package afp.util;
 
 public enum NavigateEnum {
     LOGIN("afp/gui/view/Login.fxml"),
@@ -9,9 +9,13 @@ public enum NavigateEnum {
     EDITA_CONTA("afp/gui/view/EditaConta.fxml"),
     RECUPERA_SENHA("afp/gui/view/RecuperaSenha.fxml");
 
-    public final String path;
+    private final String path;
 
     private NavigateEnum(String path) {
         this.path = path;
+    }
+
+    public String getPath() {
+        return path;
     }
 }

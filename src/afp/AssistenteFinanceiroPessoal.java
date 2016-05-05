@@ -1,6 +1,6 @@
 package afp;
 
-import afp.utils.NavigateEnum;
+import afp.util.NavigateEnum;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,7 +29,7 @@ public class AssistenteFinanceiroPessoal extends Application {
 
     public void setScene(NavigateEnum screen) {
         try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(screen.path), bundle);
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(screen.getPath()), bundle);
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

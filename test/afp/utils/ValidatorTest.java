@@ -1,5 +1,6 @@
 package afp.utils;
 
+import afp.util.Validator;
 import junit.framework.TestCase;
 
 public class ValidatorTest extends TestCase {
@@ -13,19 +14,8 @@ public class ValidatorTest extends TestCase {
         assertEquals(true, Validator.validateEmail(email));
     }
 
-    public void test_validateCPF_is_true() {
-        String cpf = "123.456.789-00";
-        assertEquals(true, Validator.validateCPF(cpf));
-    }
-
     public void test_validate_is_false() {
         String email = "juacy.williangmail.com";
         assertEquals(false, Validator.validateEmail(email));
     }
-
-    public void test_validateCPF_is_false() {
-        String cpf = "12345678900";
-        assertEquals(false, Validator.validateCPF(cpf));
-    }
-
 }

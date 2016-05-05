@@ -12,43 +12,64 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<FlowPane fx:id="myPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="afp.gui.controller.LoginController">
+<FlowPane fx:id="myPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="afp.gui.controller.LoginController">
     <children>
-        <Label text="%gui.login.welcome">
+        <Label alignment="CENTER" prefWidth="350.0" text="%gui.login.titulo">
             <font>
                 <Font name="Ubuntu Light" size="36.0" />
             </font>
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
         </Label>
-        <Separator prefWidth="200.0">
+        <Separator prefWidth="350.0">
             <FlowPane.margin>
-                <Insets bottom="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
         </Separator>
-        <Label prefWidth="200.0" text="%gui.login.email">
+        <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="%gui.login.email">
             <FlowPane.margin>
-                <Insets top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
         </Label>
-        <TextField fx:id="txUsername" prefWidth="200.0" />
-        <Label prefWidth="200.0" text="%gui.login.password">
+        <TextField fx:id="txUsername" prefWidth="250.0">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin></TextField>
+        <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="%gui.login.senha">
             <FlowPane.margin>
-                <Insets top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
         </Label>
-        <PasswordField fx:id="txPassword" prefWidth="200.0" />
-        <CheckBox fx:id="chbRemember" mnemonicParsing="false" prefWidth="200.0" text="%gui.login.remember">
+        <PasswordField fx:id="txPassword" prefWidth="250.0">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin></PasswordField>
+        <CheckBox fx:id="chbRemember" mnemonicParsing="false" prefWidth="350.0" text="%gui.login.autologin">
             <FlowPane.margin>
-                <Insets top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
         </CheckBox>
-        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <Hyperlink onAction="#acrionCadastrarUsuario" prefWidth="170.0" text="%gui.login.registrar">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </FlowPane.margin></Hyperlink>
+        <Hyperlink onAction="#actionRecuperarSenha" prefWidth="170.0" text="%gui.login.recuperarsenha">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </FlowPane.margin></Hyperlink>
+        <Label fx:id="lbErro" prefWidth="350.0" textAlignment="CENTER" textFill="RED" visible="false">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin></Label>
+        <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefWidth="350.0">
             <buttons>
-                <Button mnemonicParsing="false" onAction="#actionButtonOk" text="%gui.login.login" />
-                <Button mnemonicParsing="false" onAction="#actionButtonCancel" text="%gui.login.cancel" />
+                <Button mnemonicParsing="false" onAction="#actionCancelar" text="%gui.login.cancelar" />
+                <Button mnemonicParsing="false" onAction="#actionLogar" text="%gui.login.logar" />
             </buttons>
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
         </ButtonBar>
-        <Hyperlink onAction="#onLinkRegister" prefWidth="200.0" text="%gui.login.register" />
-        <Hyperlink onAction="#onLinkResetPassword" prefWidth="200.0" text="%gui.login.resetpassword" />
-        <Label fx:id="lbError" prefWidth="200.0" text="%gui.login.error" textAlignment="CENTER" textFill="#b20404" visible="false" />
     </children>
 </FlowPane>

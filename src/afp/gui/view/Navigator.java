@@ -15,6 +15,7 @@ public class Navigator {
 
     private Pane contentParent;
     private static Navigator instance;
+    private Stage stage;
 
     private Navigator() {
     }
@@ -29,7 +30,6 @@ public class Navigator {
     public void navigateTo(NavigateEnum s, ResourceBundle rb) {
         try {
             Parent p = FXMLLoader.load(getClass().getClassLoader().getResource(s.getPath()), rb);
-            Stage stage = (Stage) contentParent.getScene().getWindow();
             stage.setScene(new Scene(p));
         } catch (IOException ex) {
             Logger.getLogger(Navigator.class.getName()).log(Level.SEVERE, null, ex);
@@ -38,7 +38,7 @@ public class Navigator {
         }
     }
 
-    public void setContentParent(Pane contentParent) {
-        this.contentParent = contentParent;
+    public void setStage(Stage stg) {
+        this.stage = stg;
     }
 }

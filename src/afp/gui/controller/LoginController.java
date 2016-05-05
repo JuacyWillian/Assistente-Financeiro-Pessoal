@@ -22,7 +22,7 @@ public class LoginController implements Initializable {
     @FXML
     private CheckBox chbRemember;
     @FXML
-    private Label lbError;
+    private Label lbErro;
     @FXML
     private Pane myPane;
 
@@ -31,36 +31,40 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bundle = rb;
-        Navigator.getInstance().setContentParent(myPane);
     }
 
     @FXML
-    private void actionButtonOk(ActionEvent event) {
+    private void acrionCadastrarUsuario(ActionEvent event) {
+        Navigator.getInstance().navigateTo(NavigateEnum.REGISTRA_USUARIO, bundle);
+    }
+
+    @FXML
+    private void actionRecuperarSenha(ActionEvent event) {
+        Navigator.getInstance().navigateTo(NavigateEnum.RECUPERA_SENHA, bundle);
+    }
+
+    @FXML
+    private void actionCancelar(ActionEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    private void actionLogar(ActionEvent event) {
         String username = txUsername.getText();
-        String password = txPassword.getText();
-        if ("admin".equals(username) && "root".equals(password)) {
+        String senha = txPassword.getText();
+
+        if (username.isEmpty() || senha.isEmpty()) {
+            lbErro.setText(bundle.getString("erro.campovazio"));
+        }
+
+        if ("admin".equals(username) && "root".equals(senha)) {
             if (chbRemember.isSelected()) {
 //                todo: remember action
             }
             Navigator.getInstance().navigateTo(NavigateEnum.PRINCIPAL, bundle);
 
         } else {
-            lbError.setVisible(true);
+            lbErro.setVisible(true);
         }
-    }
-
-    @FXML
-    private void actionButtonCancel(ActionEvent event) {
-        System.exit(0);
-    }
-
-    @FXML
-    private void onLinkRegister(ActionEvent event) {
-        Navigator.getInstance().navigateTo(NavigateEnum.REGISTRA_USUARIO, bundle);
-    }
-
-    @FXML
-    private void onLinkResetPassword(ActionEvent event) {
-        Navigator.getInstance().navigateTo(NavigateEnum.RECUPERA_SENHA, bundle);
     }
 }

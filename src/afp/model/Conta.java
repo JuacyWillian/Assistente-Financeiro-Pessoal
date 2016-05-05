@@ -11,7 +11,7 @@ public class Conta {
     private String titulo;
     private String descricao;
 
-    private ContaCategoria categoria;
+    private Categoria categoria;
 
     private BigDecimal valor;
     private int parcelas;
@@ -31,7 +31,7 @@ public class Conta {
     }
 
     public Conta(
-            String titulo, String descricao, ContaCategoria categoria, ContaTipo tipo, BigDecimal valor,
+            String titulo, String descricao, Categoria categoria, ContaTipo tipo, BigDecimal valor,
             int parcelas, LocalDate dataCriacao, LocalDate dataVencimento, boolean quitado) {
 
         this.titulo = titulo;
@@ -73,11 +73,11 @@ public class Conta {
         this.descricao = descricao;
     }
 
-    public ContaCategoria getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(ContaCategoria categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

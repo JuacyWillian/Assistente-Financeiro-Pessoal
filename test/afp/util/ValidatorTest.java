@@ -1,4 +1,4 @@
-package afp.utils;
+package afp.util;
 
 import afp.util.Validator;
 import junit.framework.TestCase;

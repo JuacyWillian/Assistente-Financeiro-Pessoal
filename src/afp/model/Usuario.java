@@ -2,7 +2,7 @@ package afp.model;
 
 import java.util.Objects;
 
-public class UserModel {
+public class Usuario {
 
     private int id;
     private String nome;
@@ -10,16 +10,16 @@ public class UserModel {
     private String password;
     private String telefone;
 
-    public UserModel() {
+    public Usuario() {
     }
 
-    public UserModel(String nome, String email, String password) {
+    public Usuario(String nome, String email, String password) {
         this.nome = nome;
         this.email = email;
         this.password = password;
     }
 
-    public UserModel(String nome, String email, String password, String telefone) {
+    public Usuario(String nome, String email, String password, String telefone) {
         this.nome = nome;
         this.email = email;
         this.password = password;
@@ -85,7 +85,7 @@ public class UserModel {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final UserModel other = (UserModel) obj;
+        final Usuario other = (Usuario) obj;
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }

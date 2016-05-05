@@ -2,12 +2,12 @@ package afp.model;
 
 import java.util.Objects;
 
-public class ContaCategoria {
+public class Categoria {
 
     private String nome;
     private String descricao;
 
-    public ContaCategoria(String nome, String descricao) {
+    public Categoria(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
     }
@@ -47,7 +47,7 @@ public class ContaCategoria {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ContaCategoria other = (ContaCategoria) obj;
+        final Categoria other = (Categoria) obj;
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }

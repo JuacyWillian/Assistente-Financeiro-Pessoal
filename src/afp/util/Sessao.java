@@ -4,18 +4,16 @@ import afp.model.Usuario;
 import java.util.Objects;
 
 public class Sessao {
-    
+
     private Sessao instance;
     private int sessaoId;
     private Usuario usuario;
-    
-    
-    
-    
-    private Sessao(){}
-    
-    public Sessao getInstance(){
-        if(this.instance == null){
+
+    private Sessao() {
+    }
+
+    public Sessao getInstance() {
+        if (this.instance == null) {
             this.instance = new Sessao();
         }
         return this.instance;

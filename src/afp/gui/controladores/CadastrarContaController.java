@@ -1,4 +1,4 @@
-package afp.gui.controller;
+package afp.gui.controladores;
 
 import java.net.URL;
 import java.util.ResourceBundle;

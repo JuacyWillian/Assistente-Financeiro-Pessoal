@@ -1,14 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="afp.gui.controller.CadastrarContaController">
-    <stylesheets>
-        <URL value="@/afp/gui/style/gui.css"/>
-    </stylesheets>
-</AnchorPane>
+<FlowPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="afp.gui.controladores.CadastraContaController">
+   <children>
+      <Label alignment="CENTER" prefWidth="500.0" text="Titulo da pagina">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+         <font>
+            <Font name="Ubuntu" size="18.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="500.0">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Separator>
+      <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="titulo">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Label>
+      <TextField fx:id="txTitulo" prefWidth="300.0">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </TextField>
+      <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="descricao">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Label>
+      <TextArea fx:id="txDescricao" prefHeight="100.0" prefWidth="300.0">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </TextArea>
+      <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="tipo">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Label>
+      <ComboBox fx:id="cbbTipo" prefWidth="300.0" promptText="Escolha um tipo...">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </ComboBox>
+      <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="categoria">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Label>
+      <ComboBox fx:id="cbbCategoria" prefWidth="300.0" promptText="Escolha uma categoria...">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </ComboBox>
+      <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="valor">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Label>
+      <TextField fx:id="txValor" prefWidth="300.0">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </TextField>
+      <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="parcelas">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Label>
+      <TextField fx:id="txParcelas" prefWidth="300.0" text="1">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </TextField>
+      <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="Criacao">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Label>
+      <DatePicker fx:id="dtCriacao" prefWidth="300.0">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </DatePicker>
+      <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="Vencimento">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Label>
+      <DatePicker fx:id="dtVencimento" prefWidth="300.0">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </DatePicker>
+      <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="Situacao">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </Label>
+      <CheckBox fx:id="chbQuitado" mnemonicParsing="false" prefWidth="300.0" text="Quitado">
+         <FlowPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </FlowPane.margin>
+      </CheckBox>
+   </children>
+</FlowPane>

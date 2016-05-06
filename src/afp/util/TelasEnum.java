@@ -1,8 +1,8 @@
 package afp.util;
 
-public enum NavigateEnum {
+public enum TelasEnum {
     LOGIN("afp/gui/view/Login.fxml"),
-    PRINCIPAL("afp/gui/view/Main.fxml"),
+    PRINCIPAL("afp/gui/view/Principal.fxml"),
     REGISTRA_USUARIO("afp/gui/view/CadastraUsuario.fxml"),
     REGISTRA_CATEGORIA("afp/gui/view/CadastraCategoria.fxml"),
     REGISTRA_CONTA("afp/gui/view/CadastraConta.fxml"),
@@ -11,7 +11,7 @@ public enum NavigateEnum {
 
     private final String path;
 
-    private NavigateEnum(String path) {
+    private TelasEnum(String path) {
         this.path = path;
     }
 

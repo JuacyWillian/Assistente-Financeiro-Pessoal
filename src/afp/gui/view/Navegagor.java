@@ -1,6 +1,6 @@
 package afp.gui.view;
 
-import afp.util.NavigateEnum;
+import afp.util.TelasEnum;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -11,28 +11,28 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Navigator {
+public class Navegagor {
 
     private Pane contentParent;
-    private static Navigator instance;
+    private static Navegagor instance;
     private Stage stage;
 
-    private Navigator() {
+    private Navegagor() {
     }
 
-    public static Navigator getInstance() {
+    public static Navegagor getInstance() {
         if (instance == null) {
-            instance = new Navigator();
+            instance = new Navegagor();
         }
         return instance;
     }
 
-    public void navigateTo(NavigateEnum s, ResourceBundle rb) {
+    public void navigateTo(TelasEnum s, ResourceBundle rb) {
         try {
             Parent p = FXMLLoader.load(getClass().getClassLoader().getResource(s.getPath()), rb);
             stage.setScene(new Scene(p));
         } catch (IOException ex) {
-            Logger.getLogger(Navigator.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Navegagor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             ex.printStackTrace();
         }

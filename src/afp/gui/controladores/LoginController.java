@@ -1,7 +1,7 @@
-package afp.gui.controller;
+package afp.gui.controladores;
 
-import afp.gui.view.Navigator;
-import afp.util.NavigateEnum;
+import afp.gui.view.Navegagor;
+import afp.util.TelasEnum;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -35,12 +35,12 @@ public class LoginController implements Initializable {
 
     @FXML
     private void acrionCadastrarUsuario(ActionEvent event) {
-        Navigator.getInstance().navigateTo(NavigateEnum.REGISTRA_USUARIO, bundle);
+        Navegagor.getInstance().navigateTo(TelasEnum.REGISTRA_USUARIO, bundle);
     }
 
     @FXML
     private void actionRecuperarSenha(ActionEvent event) {
-        Navigator.getInstance().navigateTo(NavigateEnum.RECUPERA_SENHA, bundle);
+        Navegagor.getInstance().navigateTo(TelasEnum.RECUPERA_SENHA, bundle);
     }
 
     @FXML
@@ -61,7 +61,7 @@ public class LoginController implements Initializable {
             if (chbRemember.isSelected()) {
 //                todo: remember action
             }
-            Navigator.getInstance().navigateTo(NavigateEnum.PRINCIPAL, bundle);
+            Navegagor.getInstance().navigateTo(TelasEnum.PRINCIPAL, bundle);
 
         } else {
             lbErro.setVisible(true);

@@ -1,9 +1,9 @@
 package afp.util;
 
-import afp.util.Validator;
+import afp.util.Validador;
 import junit.framework.TestCase;
 
-public class ValidatorTest extends TestCase {
+public class ValidadorTest extends TestCase {
 
     @Override
     public void setUp() {
@@ -11,11 +11,11 @@ public class ValidatorTest extends TestCase {
 
     public void test_validateEmail_is_true() {
         String email = "juacy.willian@gmail.com";
-        assertEquals(true, Validator.validateEmail(email));
+        assertEquals(true, Validador.validateEmail(email));
     }
 
     public void test_validate_is_false() {
         String email = "juacy.williangmail.com";
-        assertEquals(false, Validator.validateEmail(email));
+        assertEquals(false, Validador.validateEmail(email));
     }
 }

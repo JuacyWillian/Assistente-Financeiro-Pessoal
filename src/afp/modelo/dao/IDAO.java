@@ -1,4 +1,4 @@
-package afp.model.dao;
+package afp.modelo.dao;
 
 import java.util.List;
 

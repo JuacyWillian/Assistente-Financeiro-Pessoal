@@ -1,5 +1,6 @@
-package afp.model;
+package afp.modelo;
 
+import afp.util.ContaTipo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -22,10 +23,6 @@ public class Conta {
     private boolean quitado;
 
     private ContaTipo tipo;
-
-    public enum ContaTipo {
-        RECEITA, DESPESA
-    }
 
     public Conta() {
     }

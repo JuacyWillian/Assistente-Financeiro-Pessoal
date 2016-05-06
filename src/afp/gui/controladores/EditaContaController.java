@@ -1,13 +1,14 @@
-package afp.gui.controller;
+package afp.gui.controladores;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
-public class CadastraCategoriaController implements Initializable {
+public class EditaContaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
+
 }

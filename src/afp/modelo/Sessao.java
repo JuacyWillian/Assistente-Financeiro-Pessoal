@@ -1,6 +1,6 @@
-package afp.util;
+package afp.modelo;
 
-import afp.model.Usuario;
+import afp.modelo.Usuario;
 import java.util.Objects;
 
 public class Sessao {

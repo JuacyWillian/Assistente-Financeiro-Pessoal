@@ -1,8 +1,8 @@
-package afp.gui.controller;
+package afp.gui.controladores;
 
-import afp.gui.view.Navigator;
-import afp.util.NavigateEnum;
-import afp.util.Validator;
+import afp.gui.view.Navegagor;
+import afp.util.TelasEnum;
+import afp.util.Validador;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -30,8 +30,6 @@ public class CadastraUsuarioController implements Initializable {
     @FXML
     private PasswordField txReSenha;
     @FXML
-    private Label lbError;
-    @FXML
     private Button btnCancelar;
     @FXML
     private Button btnCadastrar;
@@ -41,6 +39,8 @@ public class CadastraUsuarioController implements Initializable {
     private ComboBox<?> cbbPerguntas;
     @FXML
     private TextField txResposta;
+    @FXML
+    private Label lbErro;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -55,7 +55,7 @@ public class CadastraUsuarioController implements Initializable {
 
     @FXML
     private void actionCancelar(ActionEvent event) {
-        Navigator.getInstance().navigateTo(NavigateEnum.LOGIN, bundle);
+        Navegagor.getInstance().navigateTo(TelasEnum.LOGIN, bundle);
     }
 
     @FXML
@@ -69,13 +69,13 @@ public class CadastraUsuarioController implements Initializable {
         String resposta = txResposta.getText();
 
         if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || resenha.isEmpty() || resposta.isEmpty() || pergunta >= 1) {
-            lbError.setText(bundle.getString("error.fieldempty"));
-        } else if (!Validator.validateEmail(email)) {
-            lbError.setText(bundle.getString("error.invalidemail"));
+            lbErro.setText(bundle.getString("error.fieldempty"));
+        } else if (!Validador.validateEmail(email)) {
+            lbErro.setText(bundle.getString("error.invalidemail"));
         } else if (!senha.equals(resenha)) {
-            lbError.setText(bundle.getString("error.incomplatiblepasswords"));
+            lbErro.setText(bundle.getString("error.incomplatiblepasswords"));
         } else {
-            Navigator.getInstance().navigateTo(NavigateEnum.PRINCIPAL, bundle);
+            Navegagor.getInstance().navigateTo(TelasEnum.PRINCIPAL, bundle);
         }
 
     }

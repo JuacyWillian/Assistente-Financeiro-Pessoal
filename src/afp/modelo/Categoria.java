@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Categoria {
 
+    int id;
     private String nome;
     private String descricao;
 

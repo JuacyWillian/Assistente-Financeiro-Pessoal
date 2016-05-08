@@ -10,11 +10,9 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<FlowPane fx:id="myPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
-          prefHeight="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
-          fx:controller="afp.gui.controladores.CadastraCategoriaController">
+<FlowPane fx:id="myPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="afp.gui.controladores.CadastraCategoriaController">
     <children>
-        <Label alignment="CENTER" prefWidth="300.0" text="%gui.cadcat.titulo">
+        <Label alignment="CENTER" prefWidth="300.0" text="%gui.novacategoria.titulo">
             <FlowPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
@@ -27,7 +25,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
         </Separator>
-        <Label prefWidth="300.0" text="%gui.cadcat.nome">
+        <Label prefWidth="300.0" text="%gui.novacategoria.nome">
             <FlowPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
@@ -37,7 +35,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
         </TextField>
-        <Label prefWidth="300.0" text="%gui.cadcat.descricao">
+        <Label prefWidth="300.0" text="%gui.novacategoria.descricao">
             <FlowPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
@@ -45,8 +43,8 @@
         <TextArea fx:id="txDescricao" prefHeight="100.0" prefWidth="300.0" />
         <ButtonBar prefWidth="300.0">
             <buttons>
-                <Button mnemonicParsing="false" onAction="#actionCancelar" text="%gui.cadcat.cancelar" />
-                <Button mnemonicParsing="false" onAction="#actionCriar" text="%gui.cadcat.criar" />
+                <Button mnemonicParsing="false" onAction="#actionCancelar" text="%gui.novacategoria.cancelar" />
+                <Button mnemonicParsing="false" onAction="#actionCriar" text="%gui.novacategoria.criar" />
             </buttons>
             <FlowPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -12,13 +12,11 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<FlowPane fx:id="myPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
-          prefHeight="300.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
-          fx:controller="afp.gui.controladores.LoginController">
+<FlowPane fx:id="myPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="afp.gui.controladores.LoginController">
     <children>
         <Label alignment="CENTER" prefWidth="350.0" text="%gui.login.titulo">
             <font>
-                <Font name="Ubuntu Light" size="36.0" />
+                <Font name="Ubuntu Light" size="18.0" />
             </font>
             <FlowPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -49,17 +47,17 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
         </PasswordField>
-        <CheckBox fx:id="chbRemember" mnemonicParsing="false" prefWidth="350.0" text="%gui.login.autologin">
+        <CheckBox fx:id="chbRemember" mnemonicParsing="false" prefWidth="170.0" text="%gui.login.autologin">
             <FlowPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
         </CheckBox>
-        <Hyperlink onAction="#acrionCadastrarUsuario" prefWidth="170.0" text="%gui.login.registrar">
+        <Hyperlink alignment="CENTER_RIGHT" onAction="#acrionCadastrarUsuario" prefWidth="170.0" text="%gui.login.registrar">
             <FlowPane.margin>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
             </FlowPane.margin>
         </Hyperlink>
-        <Hyperlink onAction="#actionRecuperarSenha" prefWidth="170.0" text="%gui.login.recuperarsenha">
+        <Hyperlink alignment="CENTER_RIGHT" onAction="#actionRecuperarSenha" prefWidth="350.0" text="%gui.login.recuperarsenha">
             <FlowPane.margin>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
             </FlowPane.margin>

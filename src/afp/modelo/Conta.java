@@ -1,7 +1,6 @@
 package afp.modelo;
 
 import afp.util.ContaTipo;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -14,7 +13,7 @@ public class Conta {
 
     private Categoria categoria;
 
-    private BigDecimal valor;
+    private long valor;
     private int parcelas;
 
     private LocalDate dataCriacao;
@@ -28,7 +27,7 @@ public class Conta {
     }
 
     public Conta(
-            String titulo, String descricao, Categoria categoria, ContaTipo tipo, BigDecimal valor,
+            String titulo, String descricao, Categoria categoria, ContaTipo tipo, long valor,
             int parcelas, LocalDate dataCriacao, LocalDate dataVencimento, boolean quitado) {
 
         this.titulo = titulo;
@@ -78,11 +77,11 @@ public class Conta {
         this.categoria = categoria;
     }
 
-    public BigDecimal getValor() {
+    public long getValor() {
         return valor;
     }
 
-    public void setValor(BigDecimal valor) {
+    public void setValor(long valor) {
         this.valor = valor;
     }
 

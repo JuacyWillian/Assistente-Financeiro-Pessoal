@@ -23,8 +23,9 @@ public class AssistenteFinanceiroPessoal extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         this.primaryStage = stage;
-        bundle = ResourceBundle.getBundle("afp/i18n/messages", new Locale("pt", "BR"));
+        bundle = ResourceBundle.getBundle("afp/i18n/messages", Locale.getDefault());
         Navegagor.getInstance().setStage(primaryStage);
         setScene(TelasEnum.LOGIN);
     }

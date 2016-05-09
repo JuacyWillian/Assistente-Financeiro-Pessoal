@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package afp.gui.controladores;
 
 import java.net.URL;
@@ -10,6 +15,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 
+/**
+ * FXML Controller class
+ *
+ * @author jw
+ */
 public class CadastraCategoriaController implements Initializable {
 
     @FXML
@@ -21,10 +31,13 @@ public class CadastraCategoriaController implements Initializable {
     @FXML
     private Label lbErro;
 
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
+    }    
 
     @FXML
     private void actionCancelar(ActionEvent event) {
@@ -33,4 +46,5 @@ public class CadastraCategoriaController implements Initializable {
     @FXML
     private void actionCriar(ActionEvent event) {
     }
+    
 }

@@ -27,7 +27,7 @@ public class AssistenteFinanceiroPessoal extends Application {
         this.primaryStage = stage;
         bundle = ResourceBundle.getBundle("afp/i18n/messages", Locale.getDefault());
         Navegagor.getInstance().setStage(primaryStage);
-        setScene(TelasEnum.LOGIN);
+        setScene(TelasEnum.PRINCIPAL);
     }
 
     public void setScene(TelasEnum screen) {

@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<FlowPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="afp.gui.controladores.CadastraContaController">
+<FlowPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="afp.gui.controladores.CadastraContaController">
     <children>
-        <Label alignment="CENTER" prefWidth="500.0" text="%gui.cadconta.titulo">
+        <Label alignment="CENTER" prefWidth="400.0" text="%gui.cadconta.titulo">
             <FlowPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
@@ -23,7 +23,7 @@
                 <Font name="Ubuntu" size="18.0" />
             </font>
         </Label>
-        <Separator prefWidth="500.0">
+        <Separator prefWidth="400.0">
             <FlowPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </FlowPane.margin>
@@ -148,7 +148,7 @@
                 <Font name="Ubuntu" size="14.0" />
             </font>
         </CheckBox>
-        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <ButtonBar prefHeight="40.0" prefWidth="300.0">
             <buttons>
                 <Button mnemonicParsing="false" onAction="#actionCancelar" text="%gui.cadconta.cancelar">
                     <font>

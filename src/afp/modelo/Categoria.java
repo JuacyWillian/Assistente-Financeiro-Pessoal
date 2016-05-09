@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @MappedSuperclass
 @Table(name = "categorias")
 @XmlRootElement
-public class Categorias implements Serializable {
+public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,15 +43,15 @@ public class Categorias implements Serializable {
     private String descricao;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "catId")
-    private List<Contas> contasList;
+    private List<Conta> contasList;
 
-    public Categorias() {}
+    public Categoria() {}
 
-    public Categorias(String titulo) {
+    public Categoria(String titulo) {
         this.titulo = titulo;
     }
 
-    public Categorias(String titulo, String descricao) {
+    public Categoria(String titulo, String descricao) {
         this.titulo = titulo;
         this.descricao = descricao;
     }
@@ -81,11 +81,11 @@ public class Categorias implements Serializable {
     }
 
     @XmlTransient
-    public List<Contas> getContasList() {
+    public List<Conta> getContasList() {
         return contasList;
     }
 
-    public void setContasList(List<Contas> contasList) {
+    public void setContasList(List<Conta> contasList) {
         this.contasList = contasList;
     }
 
@@ -99,10 +99,10 @@ public class Categorias implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categorias)) {
+        if (!(object instanceof Categoria)) {
             return false;
         }
-        Categorias other = (Categorias) object;
+        Categoria other = (Categoria) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

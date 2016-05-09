@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @MappedSuperclass
 @Table(name = "contas")
 @XmlRootElement
-public class Contas implements Serializable {
+public class Conta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -69,12 +69,12 @@ public class Contas implements Serializable {
     
     @JoinColumn(name = "cat_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Categorias categoria;
+    private Categoria categoria;
 
-    public Contas() {
+    public Conta() {
     }
 
-    public Contas(String titulo, ContaTipo tipo, float valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
+    public Conta(String titulo, ContaTipo tipo, float valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
         setTitulo(titulo);
         setTipo(tipo);
         setValor(valor);
@@ -83,7 +83,7 @@ public class Contas implements Serializable {
         setQuitado(quitado);
     }
 
-    public Contas(String titulo, String descricao, ContaTipo tipo, Categorias categoria, float valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
+    public Conta(String titulo, String descricao, ContaTipo tipo, Categoria categoria, float valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
         setTitulo(titulo);
         setDescricao(descricao);
         setTipo(tipo);
@@ -163,11 +163,11 @@ public class Contas implements Serializable {
         this.quitado = quitado;
     }
 
-    public Categorias getCatId() {
+    public Categoria getCatId() {
         return categoria;
     }
 
-    public void setCatId(Categorias catId) {
+    public void setCatId(Categoria catId) {
         this.categoria = catId;
     }
 
@@ -181,10 +181,10 @@ public class Contas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Contas)) {
+        if (!(object instanceof Conta)) {
             return false;
         }
-        Contas other = (Contas) object;
+        Conta other = (Conta) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

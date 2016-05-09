@@ -17,9 +17,8 @@ abstract class GenericDAO<T> implements Serializable {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("AssistentePessoalPU");
     private EntityManager em;
     
-    EntityManager getEntityManager(){
-        em = this.emf.createEntityManager();
-        return em;
+    private EntityManager getEntityManager(){
+        return emf.createEntityManager();
     }
     
 }

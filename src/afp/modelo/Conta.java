@@ -8,73 +8,38 @@ package afp.modelo;
 import afp.util.ContaTipo;
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author jw
  */
-@MappedSuperclass
-@Table(name = "contas")
-@XmlRootElement
 public class Conta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
 
-    @Basic(optional = false)
-    @Column(name = "titulo")
     private String titulo;
 
-    @Column(name = "descricao")
     private String descricao;
 
-    @Basic(optional = false)
-    @Column(name = "tipo")
     private ContaTipo tipo;
 
-    @Basic(optional = false)
-    @Column(name = "valor")
-    private float valor;
+    private long valor;
 
-    @Basic(optional = false)
-    @Column(name = "dt_criacao")
-    @Temporal(TemporalType.DATE)
     private LocalDate dtCriacao;
 
-    @Basic(optional = false)
-    @Column(name = "dt_vencimento")
-    @Temporal(TemporalType.DATE)
     private LocalDate dtVencimento;
 
-    @Basic(optional = false)
-    @Column(name = "quitado")
     private boolean quitado;
 
-    @JoinColumn(name = "cat_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
     private Categoria categoria;
 
     public Conta() {
     }
 
-    public Conta(String titulo, ContaTipo tipo, float valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
+    public Conta(String titulo, ContaTipo tipo, long valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
         setTitulo(titulo);
         setTipo(tipo);
         setValor(valor);
@@ -83,7 +48,7 @@ public class Conta implements Serializable {
         setQuitado(quitado);
     }
 
-    public Conta(String titulo, String descricao, ContaTipo tipo, Categoria categoria, float valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
+    public Conta(String titulo, String descricao, ContaTipo tipo, Categoria categoria, long valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
         setTitulo(titulo);
         setDescricao(descricao);
         setTipo(tipo);
@@ -125,11 +90,11 @@ public class Conta implements Serializable {
         this.tipo = tipo;
     }
 
-    public float getValor() {
+    public long getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(long valor) {
         if (valor > 0) {
             this.valor = valor;
         } else {
@@ -161,12 +126,12 @@ public class Conta implements Serializable {
         this.quitado = quitado;
     }
 
-    public Categoria getCatId() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCatId(Categoria catId) {
-        this.categoria = catId;
+    public void setCategoria(Categoria id) {
+        this.categoria = id;
     }
 
     @Override

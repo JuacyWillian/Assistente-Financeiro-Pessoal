@@ -7,15 +7,6 @@ package afp.modelo;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -23,26 +14,15 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author jw
  */
-@MappedSuperclass
-@Table(name = "categorias")
-@XmlRootElement
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
 
-    @Basic(optional = false)
-    @Column(name = "titulo")
     private String titulo;
 
-    @Column(name = "descricao")
     private String descricao;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "catId")
     private List<Conta> contasList;
 
     public Categoria() {
@@ -55,6 +35,10 @@ public class Categoria implements Serializable {
     public Categoria(String titulo, String descricao) {
         this.titulo = titulo;
         this.descricao = descricao;
+    }
+
+    public Categoria(int aInt, String string, String string0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getId() {

@@ -6,10 +6,14 @@
 package afp.modelo.dao;
 
 import afp.modelo.Categoria;
-import afp.util.FabricaDeEntidades;
+import afp.util.FabricaDeConexoes;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -17,96 +21,44 @@ import javax.persistence.EntityManagerFactory;
  */
 public class CategoriaDAO implements IDAO<Categoria> {
 
-    EntityManagerFactory emf;
+    private final FabricaDeConexoes fabrica;
 
     public CategoriaDAO() {
-        emf = FabricaDeEntidades.getEntityManagerFactory();
-    }
-
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
+        fabrica = new FabricaDeConexoes();
     }
 
     @Override
     public void insert(Categoria c) {
-        EntityManager em = getEntityManager();
-
-        try {
-            em.getTransaction().begin();
-            em.persist(c);
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
+        throw new NotImplementedException();
     }
 
     @Override
     public Categoria update(Categoria c) {
-        EntityManager em = getEntityManager();
-        Categoria c2 = null;
-        try {
-            em.getTransaction().begin();
-            c2 = em.merge(c);
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
-        return c2;
+        throw new NotImplementedException();
     }
 
     @Override
     public void delete(Categoria c) {
-        EntityManager em = getEntityManager();
-
-        try {
-            em.getTransaction().begin();
-            em.remove(c);
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
+        throw new NotImplementedException();
     }
 
     @Override
     public List<Categoria> findAll() {
-        EntityManager em = getEntityManager();
-        List<Categoria> list = null;
-        try {
-            em.getTransaction().begin();
-            list = em.createQuery("SELECT c FROM Categoria c").getResultList();
-            em.getTransaction().commit();
+        String sql = "select * from contas LEFT JOIN categorias ON contas.cat_id = categorias.id;";
+        List<Categoria> contaList = new ArrayList();
+        try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+            ResultSet rs = ps.executeQuery();
 
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
+            while (rs.next()) {
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return list;
+        return contaList;
     }
 
     @Override
     public Categoria findById(int id) {
-        EntityManager em = getEntityManager();
-        Categoria c = null;
-        try {
-            em.getTransaction().begin();
-            c = em.find(Categoria.class, id);
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
-        return c;
+        throw new NotImplementedException();
     }
 }

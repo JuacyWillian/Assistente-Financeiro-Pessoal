@@ -48,7 +48,7 @@ public class CadastraContaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void actionCancelar(ActionEvent event) {
@@ -57,5 +57,5 @@ public class CadastraContaController implements Initializable {
     @FXML
     private void actionEnviar(ActionEvent event) {
     }
-    
+
 }

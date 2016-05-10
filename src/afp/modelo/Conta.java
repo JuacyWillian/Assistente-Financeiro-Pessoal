@@ -31,42 +31,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Conta implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
+
     @Basic(optional = false)
     @Column(name = "titulo")
     private String titulo;
-    
+
     @Column(name = "descricao")
     private String descricao;
-    
+
     @Basic(optional = false)
     @Column(name = "tipo")
     private ContaTipo tipo;
-    
+
     @Basic(optional = false)
     @Column(name = "valor")
     private float valor;
-    
+
     @Basic(optional = false)
     @Column(name = "dt_criacao")
     @Temporal(TemporalType.DATE)
     private LocalDate dtCriacao;
-    
+
     @Basic(optional = false)
     @Column(name = "dt_vencimento")
     @Temporal(TemporalType.DATE)
     private LocalDate dtVencimento;
-    
+
     @Basic(optional = false)
     @Column(name = "quitado")
     private boolean quitado;
-    
+
     @JoinColumn(name = "cat_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Categoria categoria;
@@ -92,8 +92,6 @@ public class Conta implements Serializable {
         setDtVencimento(dtVencimento);
         setQuitado(quitado);
     }
-    
-    
 
     public Integer getId() {
         return id;
@@ -122,8 +120,8 @@ public class Conta implements Serializable {
     public ContaTipo getTipo() {
         return tipo;
     }
-    
-    public void setTipo(ContaTipo tipo){
+
+    public void setTipo(ContaTipo tipo) {
         this.tipo = tipo;
     }
 
@@ -132,9 +130,9 @@ public class Conta implements Serializable {
     }
 
     public void setValor(float valor) {
-        if (valor > 0){
+        if (valor > 0) {
             this.valor = valor;
-        }else {
+        } else {
             this.valor = 0;
         }
     }

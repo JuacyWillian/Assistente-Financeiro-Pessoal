@@ -1,4 +1,4 @@
-package afp.connection;
+package afp.util;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

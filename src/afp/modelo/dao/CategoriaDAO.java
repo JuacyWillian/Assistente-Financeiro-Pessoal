@@ -5,8 +5,8 @@
  */
 package afp.modelo.dao;
 
-import afp.connection.FabricaDeEntidades;
 import afp.modelo.Categoria;
+import afp.util.FabricaDeEntidades;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,29 +15,30 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author jw
  */
-public class CategoriaDAO implements IDAO<Categoria>{
+public class CategoriaDAO implements IDAO<Categoria> {
+
     EntityManagerFactory emf;
 
     public CategoriaDAO() {
         emf = FabricaDeEntidades.getEntityManagerFactory();
     }
-    
-    private EntityManager getEntityManager(){
+
+    private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
     @Override
     public void insert(Categoria c) {
         EntityManager em = getEntityManager();
-        
+
         try {
             em.getTransaction().begin();
             em.persist(c);
             em.getTransaction().commit();
-            
+
         } catch (Exception e) {
             em.getTransaction().rollback();
-        }finally{
+        } finally {
             em.close();
         }
     }
@@ -45,15 +46,15 @@ public class CategoriaDAO implements IDAO<Categoria>{
     @Override
     public Categoria update(Categoria c) {
         EntityManager em = getEntityManager();
-        Categoria c2=null;
+        Categoria c2 = null;
         try {
             em.getTransaction().begin();
             c2 = em.merge(c);
             em.getTransaction().commit();
-            
+
         } catch (Exception e) {
             em.getTransaction().rollback();
-        }finally{
+        } finally {
             em.close();
         }
         return c2;
@@ -62,15 +63,15 @@ public class CategoriaDAO implements IDAO<Categoria>{
     @Override
     public void delete(Categoria c) {
         EntityManager em = getEntityManager();
-        
+
         try {
             em.getTransaction().begin();
             em.remove(c);
             em.getTransaction().commit();
-            
+
         } catch (Exception e) {
             em.getTransaction().rollback();
-        }finally{
+        } finally {
             em.close();
         }
     }
@@ -83,10 +84,10 @@ public class CategoriaDAO implements IDAO<Categoria>{
             em.getTransaction().begin();
             list = em.createQuery("SELECT c FROM Categoria c").getResultList();
             em.getTransaction().commit();
-            
+
         } catch (Exception e) {
             em.getTransaction().rollback();
-        }finally{
+        } finally {
             em.close();
         }
         return list;
@@ -100,10 +101,10 @@ public class CategoriaDAO implements IDAO<Categoria>{
             em.getTransaction().begin();
             c = em.find(Categoria.class, id);
             em.getTransaction().commit();
-            
+
         } catch (Exception e) {
             em.getTransaction().rollback();
-        }finally{
+        } finally {
             em.close();
         }
         return c;

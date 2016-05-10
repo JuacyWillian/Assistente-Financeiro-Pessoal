@@ -34,18 +34,19 @@ public class Categoria implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
+
     @Basic(optional = false)
     @Column(name = "titulo")
     private String titulo;
-    
+
     @Column(name = "descricao")
     private String descricao;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "catId")
     private List<Conta> contasList;
 
-    public Categoria() {}
+    public Categoria() {
+    }
 
     public Categoria(String titulo) {
         this.titulo = titulo;

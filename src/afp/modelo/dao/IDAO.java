@@ -6,7 +6,7 @@ public interface IDAO<T> {
 
     void insert(T obj);
 
-    T update(T obj);
+    void update(T obj);
 
     void delete(T obj);
 

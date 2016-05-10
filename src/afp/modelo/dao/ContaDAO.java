@@ -5,6 +5,7 @@ import afp.modelo.Conta;
 import afp.util.ContaTipo;
 import afp.util.FabricaDeConexoes;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,12 +23,41 @@ public class ContaDAO implements IDAO<Conta> {
 
     @Override
     public void insert(Conta c) {
-        throw new NotImplementedException();
+        String sql = "INSERT INTO contas(titulo, descricao, cat_id, tipo, valor, dt_criacao, dt_vencimento, quitado) VALUES(?,?,?,?,?,?,?,?)";
+        try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setString(1, c.getTitulo());
+            ps.setString(2, c.getDescricao());
+            ps.setInt(3, c.getCategoria().getId());
+            ps.setString(4, c.getTipo().name());
+            ps.setLong(5, c.getValor());
+            ps.setDate(6, Date.valueOf(c.getDtCriacao()));
+            ps.setDate(7, Date.valueOf(c.getDtVencimento()));
+            ps.setBoolean(8, c.getQuitado());
+
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public Conta update(Conta c) {
-        throw new NotImplementedException();
+    public void update(Conta c) {
+        String sql = "UPDATE contas SET (titulo=?, descricao=?, cat_id=?, tipo=?, valor=?, dt_criacao=?, dt_vencimento=?, quitado=?) WHERE contas.id=?;";
+        try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setString(1, c.getTitulo());
+            ps.setString(2, c.getDescricao());
+            ps.setInt(3, c.getCategoria().getId());
+            ps.setString(4, c.getTipo().name());
+            ps.setLong(5, c.getValor());
+            ps.setDate(6, Date.valueOf(c.getDtCriacao()));
+            ps.setDate(7, Date.valueOf(c.getDtVencimento()));
+            ps.setBoolean(8, c.getQuitado());
+            ps.setInt(9, c.getId());
+
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -37,7 +67,6 @@ public class ContaDAO implements IDAO<Conta> {
         try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, c.getId());
             ps.executeUpdate();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

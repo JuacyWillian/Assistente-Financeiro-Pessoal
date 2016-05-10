@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class ContaDAO implements IDAO<Conta> {
 
@@ -136,5 +135,34 @@ public class ContaDAO implements IDAO<Conta> {
             ex.printStackTrace();
         }
         return null;
+    }
+    
+    public List<Conta> findByCategoria(Categoria cat){
+        String sql = "SELECT * FROM contas WHERE cat_id=?;";
+        List<Conta> contas = new ArrayList();
+        try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setInt(1, cat.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Conta c = new Conta();
+                c.setId(rs.getInt("contas.id"));
+                c.setTitulo(rs.getString("contas.titulo"));
+                c.setDescricao(rs.getString("contas.descricao"));
+
+                c.setCategoria(cat);
+                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
+                c.setValor(rs.getLong("contas.valor"));
+                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
+                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
+                c.setQuitado(rs.getBoolean("contas.quitado"));
+
+                contas.add(c);
+            }
+            
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return contas;
     }
 }

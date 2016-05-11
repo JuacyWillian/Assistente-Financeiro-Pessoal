@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContaDAO implements IDAO<Conta> {
+public class ContaDAO {
 
     private final FabricaDeConexoes fabrica;
 
@@ -20,7 +20,6 @@ public class ContaDAO implements IDAO<Conta> {
         fabrica = new FabricaDeConexoes();
     }
 
-    @Override
     public void insert(Conta c) {
         String sql = "INSERT INTO contas("
                 + "titulo, descricao, cat_id, tipo, valor, dt_criacao, dt_vencimento, quitado) "
@@ -42,7 +41,6 @@ public class ContaDAO implements IDAO<Conta> {
         }
     }
 
-    @Override
     public void update(Conta c) {
         String sql = "UPDATE contas "
                 + "SET (titulo=?, descricao=?, cat_id=?, tipo=?, "
@@ -66,7 +64,6 @@ public class ContaDAO implements IDAO<Conta> {
         }
     }
 
-    @Override
     public void delete(Conta c) {
         String sql = "DELETE from contas where contas.id=?";
         List<Conta> contaList = new ArrayList();
@@ -79,7 +76,6 @@ public class ContaDAO implements IDAO<Conta> {
         }
     }
 
-    @Override
     public List<Conta> findAll() {
         String sql = "select * from contas "
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
@@ -114,7 +110,6 @@ public class ContaDAO implements IDAO<Conta> {
         return contaList;
     }
 
-    @Override
     public Conta findById(int id) {
         String sql = "select * from contas where contas.id=? "
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";

@@ -34,6 +34,7 @@ public class Conta implements Serializable {
         setTitulo(titulo);
         setDescricao(descricao);
         setTipo(tipo);
+        setCategoria(categoria);
         setValor(valor);
         setDtCriacao(dtCriacao);
         setDtVencimento(dtVencimento);

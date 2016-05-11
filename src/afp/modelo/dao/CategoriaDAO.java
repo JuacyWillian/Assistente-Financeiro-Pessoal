@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriaDAO implements IDAO<Categoria> {
+public class CategoriaDAO {
 
     private final FabricaDeConexoes fabrica;
 
@@ -17,21 +17,22 @@ public class CategoriaDAO implements IDAO<Categoria> {
         fabrica = new FabricaDeConexoes();
     }
 
-    @Override
-    public void insert(Categoria c) {
-        String sql = "INSERT INTO contas(titulo, descricao) VALUES(?,?)";
+    public Categoria insert(Categoria c) {
+        String sql = "INSERT INTO categorias(titulo, descricao) VALUES(?,?)";
         try (Connection con = fabrica.getConnection(); 
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, c.getTitulo());
             ps.setString(2, c.getDescricao());
-
             ps.executeUpdate();
+            
+            return findByNameAndDescription(c);
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        return null;
     }
 
-    @Override
     public void update(Categoria c) {
         String sql = "UPDATE categorias SET (titulo=?, descricao=?) "
                 + "WHERE categorias.id=?;";
@@ -47,7 +48,6 @@ public class CategoriaDAO implements IDAO<Categoria> {
         }
     }
 
-    @Override
     public void delete(Categoria c) {
         String sql = "DELETE from categorias where categorias.id=?";
         try (Connection con = fabrica.getConnection(); 
@@ -59,10 +59,8 @@ public class CategoriaDAO implements IDAO<Categoria> {
         }
     }
 
-    @Override
     public List<Categoria> findAll() {
-        String sql = "select * from contas "
-                + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
+        String sql = "select * from categorias";
         List<Categoria> categoriaList = new ArrayList();
         try (Connection con = fabrica.getConnection(); 
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -83,10 +81,8 @@ public class CategoriaDAO implements IDAO<Categoria> {
         return categoriaList;
     }
 
-    @Override
     public Categoria findById(int id) {
-        String sql = "select * from contas where contas.id=? "
-                + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
+        String sql = "select * from categorias where contas.id=?";
         try (Connection con = fabrica.getConnection(); 
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, id);
@@ -94,6 +90,26 @@ public class CategoriaDAO implements IDAO<Categoria> {
 
             while (rs.next()) {
                 Categoria cat = new Categoria();
+                cat.setId(rs.getInt("categorias.id"));
+                cat.setTitulo(rs.getString("categorias.titulo"));
+                cat.setDescricao(rs.getString("categorias.descricao"));
+                return cat;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Categoria findByNameAndDescription(Categoria cat) {
+        String sql = "SELECT * FROM categorias WHERE titulo=? AND descricao=?";
+        try (Connection con = fabrica.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setString(1, cat.getTitulo());
+            ps.setString(2, cat.getDescricao());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
                 cat.setId(rs.getInt("categorias.id"));
                 cat.setTitulo(rs.getString("categorias.titulo"));
                 cat.setDescricao(rs.getString("categorias.descricao"));

@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface IDAO<T> {
 
-    void insert(T obj);
+    T insert(T obj);
 
-    void update(T obj);
+    T update(T obj);
 
-    void delete(T obj);
+    boolean delete(T obj);
 
     List<T> findAll();
 

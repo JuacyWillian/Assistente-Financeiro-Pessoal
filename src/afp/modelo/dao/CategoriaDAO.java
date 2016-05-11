@@ -20,7 +20,8 @@ public class CategoriaDAO implements IDAO<Categoria> {
     @Override
     public void insert(Categoria c) {
         String sql = "INSERT INTO contas(titulo, descricao) VALUES(?,?)";
-        try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = fabrica.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, c.getTitulo());
             ps.setString(2, c.getDescricao());
 
@@ -32,8 +33,10 @@ public class CategoriaDAO implements IDAO<Categoria> {
 
     @Override
     public void update(Categoria c) {
-        String sql = "UPDATE categorias SET (titulo=?, descricao=?) WHERE categorias.id=?;";
-        try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+        String sql = "UPDATE categorias SET (titulo=?, descricao=?) "
+                + "WHERE categorias.id=?;";
+        try (Connection con = fabrica.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, c.getTitulo());
             ps.setString(2, c.getDescricao());
             ps.setInt(3, c.getId());
@@ -47,7 +50,8 @@ public class CategoriaDAO implements IDAO<Categoria> {
     @Override
     public void delete(Categoria c) {
         String sql = "DELETE from categorias where categorias.id=?";
-        try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = fabrica.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, c.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -57,9 +61,11 @@ public class CategoriaDAO implements IDAO<Categoria> {
 
     @Override
     public List<Categoria> findAll() {
-        String sql = "select * from contas LEFT JOIN categorias ON contas.cat_id = categorias.id;";
+        String sql = "select * from contas "
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
         List<Categoria> categoriaList = new ArrayList();
-        try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = fabrica.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -79,8 +85,10 @@ public class CategoriaDAO implements IDAO<Categoria> {
 
     @Override
     public Categoria findById(int id) {
-        String sql = "select * from contas where contas.id=? LEFT JOIN categorias ON contas.cat_id = categorias.id;";
-        try (Connection con = fabrica.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+        String sql = "select * from contas where contas.id=? "
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
+        try (Connection con = fabrica.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 

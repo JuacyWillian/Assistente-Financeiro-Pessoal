@@ -20,9 +20,12 @@ public class FabricaDeConexoes {
 
     public Connection getConnection() {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection(url, usuario, senha);
         } catch (SQLException ex) {
             Logger.getLogger(FabricaDeConexoes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FabricaDeConexoes.class.getName()).log(Level.SEVERE, "Driver não encontrado.", ex);
         }
         return null;
     }

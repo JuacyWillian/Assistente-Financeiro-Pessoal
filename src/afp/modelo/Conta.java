@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package afp.modelo;
 
 import afp.util.ContaTipo;
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author jw
- */
 public class Conta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,16 +29,8 @@ public class Conta implements Serializable {
     public Conta() {
     }
 
-    public Conta(String titulo, ContaTipo tipo, long valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
-        setTitulo(titulo);
-        setTipo(tipo);
-        setValor(valor);
-        setDtCriacao(dtCriacao);
-        setDtVencimento(dtVencimento);
-        setQuitado(quitado);
-    }
-
-    public Conta(String titulo, String descricao, ContaTipo tipo, Categoria categoria, long valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
+    public Conta(String titulo, String descricao, ContaTipo tipo, Categoria categoria, 
+            long valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
         setTitulo(titulo);
         setDescricao(descricao);
         setTipo(tipo);
@@ -118,7 +100,7 @@ public class Conta implements Serializable {
         this.dtVencimento = dtVencimento;
     }
 
-    public boolean getQuitado() {
+    public boolean isQuitado() {
         return quitado;
     }
 

@@ -2,6 +2,7 @@ package afp.modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class Categoria implements Serializable {
 
@@ -46,19 +47,32 @@ public class Categoria implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.titulo);
+        hash = 59 * hash + Objects.hashCode(this.descricao);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categoria)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Categoria other = (Categoria) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Categoria other = (Categoria) obj;
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.descricao, other.descricao)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
@@ -66,6 +80,8 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "afp.modelo.Categorias[ id=" + id + " ]";
+        return "Categoria{" + "titulo=" + titulo + ", descricao=" + descricao + '}';
     }
+
+    
 }

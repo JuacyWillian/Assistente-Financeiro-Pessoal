@@ -9,6 +9,7 @@ import afp.util.ContaTipo;
 import afp.util.TelasEnum;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,21 +28,51 @@ public class AssistenteFinanceiroPessoal {// extends Application {
     public static void main(String[] args) {
 //        launch(args);
         CategoriaDAO daoCategoria = new CategoriaDAO();
-        Categoria cat = new Categoria("Alimentação", "Gastos com supermercado em geral");
-        cat = daoCategoria.insert(cat);
-        
         ContaDAO daoConta = new ContaDAO();
-        Conta conta = new Conta(
-                "Compras do Mes de Maio", 
-                "Gastos com as compras no mes de maio", 
-                ContaTipo.DESPESA, 
-                cat, 
-                150, 
-                LocalDate.now(), 
-                LocalDate.of(2016, Month.JUNE, 7), 
-                false
+//        Categoria cat = new Categoria("Alimentação", "Gastos com supermercado em geral");
+//        cat = daoCategoria.insert(cat);
+//        
+//        Conta conta = new Conta(
+//                "Compras do Mes de Maio", 
+//                "Gastos com as compras no mes de maio", 
+//                ContaTipo.DESPESA, 
+//                cat, 
+//                150, 
+//                LocalDate.now(), 
+//                LocalDate.of(2016, Month.JUNE, 7), 
+//                false
+//        );
+//        daoConta.insert(conta);
+        
+        List<Conta> contasQuitadas = daoConta.findQuitadas();
+        List<Conta> contasPendentes = daoConta.findPendentes();
+        List<Conta> contasVencidas = daoConta.findVencidas();
+        List<Conta> contasPendentesVencidas = daoConta.findPendentesVencidas();
+        
+        System.out.println("++++++++++++");
+        System.out.println("Contas Quitadas");
+        contasQuitadas.stream().forEach( 
+                (cq) -> System.out.println(cq.toString())
         );
-        daoConta.insert(conta);
+        
+        System.out.println("++++++++++++");
+        System.out.println("Contas Pendentes");
+        contasPendentes.stream().forEach( 
+                (cq) -> System.out.println(cq.toString())
+        );
+        
+        System.out.println("++++++++++++");
+        System.out.println("Contas Vencidas");
+        contasVencidas.stream().forEach( 
+                (cq) -> System.out.println(cq.toString())
+        );
+        
+        System.out.println("++++++++++++");
+        System.out.println("Contas Pendentes Vencidas");
+        contasPendentesVencidas.stream().forEach( 
+                (cq) -> System.out.println(cq.toString())
+        );
+        
     }
 
 //    @Override

@@ -3,6 +3,7 @@ package afp.modelo;
 import afp.util.ContaTipo;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Conta implements Serializable {
 
@@ -119,19 +120,56 @@ public class Conta implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 43 * hash + Objects.hashCode(this.id);
+        hash = 43 * hash + Objects.hashCode(this.titulo);
+        hash = 43 * hash + Objects.hashCode(this.descricao);
+        hash = 43 * hash + Objects.hashCode(this.tipo);
+        hash = 43 * hash + (int) (this.valor ^ (this.valor >>> 32));
+        hash = 43 * hash + Objects.hashCode(this.dtCriacao);
+        hash = 43 * hash + Objects.hashCode(this.dtVencimento);
+        hash = 43 * hash + (this.quitado ? 1 : 0);
+        hash = 43 * hash + Objects.hashCode(this.categoria);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Conta)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Conta other = (Conta) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Conta other = (Conta) obj;
+        if (this.valor != other.valor) {
+            return false;
+        }
+        if (this.quitado != other.quitado) {
+            return false;
+        }
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.descricao, other.descricao)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (this.tipo != other.tipo) {
+            return false;
+        }
+        if (!Objects.equals(this.dtCriacao, other.dtCriacao)) {
+            return false;
+        }
+        if (!Objects.equals(this.dtVencimento, other.dtVencimento)) {
+            return false;
+        }
+        if (!Objects.equals(this.categoria, other.categoria)) {
             return false;
         }
         return true;
@@ -139,6 +177,7 @@ public class Conta implements Serializable {
 
     @Override
     public String toString() {
-        return "afp.modelo.Contas[ id=" + id + " ]";
+        return "Conta{" + "titulo=" + titulo + ", descricao=" + descricao + ", tipo=" + tipo + ", valor=" + valor + ", dtCriacao=" + dtCriacao + ", dtVencimento=" + dtVencimento + ", quitado=" + quitado + ", categoria=" + categoria + '}';
     }
+
 }

@@ -24,7 +24,7 @@ public class ContaDAO {
         String sql = "INSERT INTO contas("
                 + "titulo, descricao, cat_id, tipo, valor, dt_criacao, dt_vencimento, quitado) "
                 + "VALUES(?,?,?,?,?,?,?,?)";
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, c.getTitulo());
             ps.setString(2, c.getDescricao());
@@ -46,7 +46,7 @@ public class ContaDAO {
                 + "SET (titulo=?, descricao=?, cat_id=?, tipo=?, "
                 + "valor=?, dt_criacao=?, dt_vencimento=?, quitado=?) "
                 + "WHERE contas.id=?;";
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, c.getTitulo());
             ps.setString(2, c.getDescricao());
@@ -67,7 +67,7 @@ public class ContaDAO {
     public void delete(Conta c) {
         String sql = "DELETE from contas where contas.id=?";
         List<Conta> contaList = new ArrayList();
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, c.getId());
             ps.executeUpdate();
@@ -80,7 +80,7 @@ public class ContaDAO {
         String sql = "select * from contas "
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
         List<Conta> contaList = new ArrayList();
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
 
@@ -113,7 +113,7 @@ public class ContaDAO {
     public Conta findById(int id) {
         String sql = "select * from contas where contas.id=? "
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -143,12 +143,12 @@ public class ContaDAO {
         }
         return null;
     }
-    
-    public List<Conta> findByCategoria(Categoria cat){
+
+    public List<Conta> findByCategoria(Categoria cat) {
         String sql = "SELECT * FROM contas WHERE cat_id=?; "
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
         List<Conta> contas = new ArrayList();
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, cat.getId());
             ResultSet rs = ps.executeQuery();
@@ -168,8 +168,8 @@ public class ContaDAO {
 
                 contas.add(c);
             }
-            
-        }catch (Exception ex){
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return contas;
@@ -179,7 +179,7 @@ public class ContaDAO {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
                 + "ON contas.cat_id=categorias.id WHERE quitado=true";
         List<Conta> contas = new ArrayList();
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
 
@@ -189,12 +189,12 @@ public class ContaDAO {
                 c.setId(rs.getInt("contas.id"));
                 c.setTitulo(rs.getString("contas.titulo"));
                 c.setDescricao(rs.getString("contas.descricao"));
-                
+
                 cat.setId(rs.getInt("categorias.id"));
                 cat.setTitulo(rs.getString("categorias.titulo"));
                 cat.setDescricao(rs.getString("categorias.descricao"));
                 c.setCategoria(cat);
-                
+
                 c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
                 c.setValor(rs.getLong("contas.valor"));
                 c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
@@ -203,8 +203,8 @@ public class ContaDAO {
 
                 contas.add(c);
             }
-            
-        }catch (Exception ex){
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return contas;
@@ -214,7 +214,7 @@ public class ContaDAO {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
                 + "ON contas.cat_id=categorias.id WHERE quitado=false";
         List<Conta> contas = new ArrayList();
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
 
@@ -224,12 +224,12 @@ public class ContaDAO {
                 c.setId(rs.getInt("contas.id"));
                 c.setTitulo(rs.getString("contas.titulo"));
                 c.setDescricao(rs.getString("contas.descricao"));
-                
+
                 cat.setId(rs.getInt("categorias.id"));
                 cat.setTitulo(rs.getString("categorias.titulo"));
                 cat.setDescricao(rs.getString("categorias.descricao"));
                 c.setCategoria(cat);
-                
+
                 c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
                 c.setValor(rs.getLong("contas.valor"));
                 c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
@@ -238,8 +238,8 @@ public class ContaDAO {
 
                 contas.add(c);
             }
-            
-        }catch (Exception ex){
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return contas;
@@ -249,7 +249,7 @@ public class ContaDAO {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
                 + "ON contas.cat_id=categorias.id WHERE dt_vencimento<curdate()";
         List<Conta> contas = new ArrayList();
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
 
@@ -259,12 +259,12 @@ public class ContaDAO {
                 c.setId(rs.getInt("contas.id"));
                 c.setTitulo(rs.getString("contas.titulo"));
                 c.setDescricao(rs.getString("contas.descricao"));
-                
+
                 cat.setId(rs.getInt("categorias.id"));
                 cat.setTitulo(rs.getString("categorias.titulo"));
                 cat.setDescricao(rs.getString("categorias.descricao"));
                 c.setCategoria(cat);
-                
+
                 c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
                 c.setValor(rs.getLong("contas.valor"));
                 c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
@@ -273,18 +273,18 @@ public class ContaDAO {
 
                 contas.add(c);
             }
-            
-        }catch (Exception ex){
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return contas;
     }
-    
+
     public List<Conta> findPendentesVencidas() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias ON contas.cat_id=categorias.id "
                 + "WHERE dt_vencimento<curdate() AND quitado=false";
         List<Conta> contas = new ArrayList();
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
 
@@ -294,12 +294,12 @@ public class ContaDAO {
                 c.setId(rs.getInt("contas.id"));
                 c.setTitulo(rs.getString("contas.titulo"));
                 c.setDescricao(rs.getString("contas.descricao"));
-                
+
                 cat.setId(rs.getInt("categorias.id"));
                 cat.setTitulo(rs.getString("categorias.titulo"));
                 cat.setDescricao(rs.getString("categorias.descricao"));
                 c.setCategoria(cat);
-                
+
                 c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
                 c.setValor(rs.getLong("contas.valor"));
                 c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
@@ -308,8 +308,8 @@ public class ContaDAO {
 
                 contas.add(c);
             }
-            
-        }catch (Exception ex){
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return contas;

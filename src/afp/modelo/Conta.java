@@ -30,7 +30,7 @@ public class Conta implements Serializable {
     public Conta() {
     }
 
-    public Conta(String titulo, String descricao, ContaTipo tipo, Categoria categoria, 
+    public Conta(String titulo, String descricao, ContaTipo tipo, Categoria categoria,
             long valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
         setTitulo(titulo);
         setDescricao(descricao);

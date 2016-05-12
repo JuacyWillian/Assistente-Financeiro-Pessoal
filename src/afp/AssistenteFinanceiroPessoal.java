@@ -19,7 +19,7 @@ public class AssistenteFinanceiroPessoal extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        
+
     }
 
     @Override

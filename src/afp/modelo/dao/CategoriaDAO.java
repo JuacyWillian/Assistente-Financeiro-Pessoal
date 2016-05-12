@@ -19,14 +19,14 @@ public class CategoriaDAO {
 
     public Categoria insert(Categoria c) {
         String sql = "INSERT INTO categorias(titulo, descricao) VALUES(?,?)";
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, c.getTitulo());
             ps.setString(2, c.getDescricao());
             ps.executeUpdate();
-            
+
             return findByNameAndDescription(c);
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -36,7 +36,7 @@ public class CategoriaDAO {
     public void update(Categoria c) {
         String sql = "UPDATE categorias SET (titulo=?, descricao=?) "
                 + "WHERE categorias.id=?;";
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, c.getTitulo());
             ps.setString(2, c.getDescricao());
@@ -50,7 +50,7 @@ public class CategoriaDAO {
 
     public void delete(Categoria c) {
         String sql = "DELETE from categorias where categorias.id=?";
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, c.getId());
             ps.executeUpdate();
@@ -62,7 +62,7 @@ public class CategoriaDAO {
     public List<Categoria> findAll() {
         String sql = "select * from categorias";
         List<Categoria> categoriaList = new ArrayList();
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
 
@@ -83,7 +83,7 @@ public class CategoriaDAO {
 
     public Categoria findById(int id) {
         String sql = "select * from categorias where contas.id=?";
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -100,10 +100,10 @@ public class CategoriaDAO {
         }
         return null;
     }
-    
+
     public Categoria findByNameAndDescription(Categoria cat) {
         String sql = "SELECT * FROM categorias WHERE titulo=? AND descricao=?";
-        try (Connection con = fabrica.getConnection(); 
+        try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, cat.getTitulo());
             ps.setString(2, cat.getDescricao());

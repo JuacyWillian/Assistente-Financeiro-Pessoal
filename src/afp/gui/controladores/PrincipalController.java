@@ -52,7 +52,6 @@ public class PrincipalController implements Initializable {
     private Label lbVencimento;
     @FXML
     private Label lbQuitado;
-    private ContaDAO dao;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -95,22 +94,57 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
-    private void actionVerQuitadas(ActionEvent event) {
-        popularTabela(new ContaDAO().findQuitadas());
+    private void actionVerReceitas(ActionEvent event) {
+        popularTabela(new ContaDAO().findAllReceitas());
     }
 
     @FXML
-    private void actionVerPendentes(ActionEvent event) {
-        popularTabela(new ContaDAO().findPendentes());
+    private void actionVerDespesas(ActionEvent event) {
+        popularTabela(new ContaDAO().findAllDespesas());
     }
 
     @FXML
-    private void actionVerVencidas(ActionEvent event) {
-        popularTabela(new ContaDAO().findVencidas());
+    private void actionVerDespesasQuitadas(ActionEvent event) {
+        popularTabela(new ContaDAO().findDespesasQuitadas());
     }
 
     @FXML
-    private void actionVerPendentesVencidas(ActionEvent event) {
-        popularTabela(new ContaDAO().findPendentesVencidas());
+    private void actionVerDespesasPendentes(ActionEvent event) {
+        popularTabela(new ContaDAO().findDespesasPendentes());
+    }
+
+    @FXML
+    private void actionVerDespesasVencidas(ActionEvent event) {
+        popularTabela(new ContaDAO().findDespesasVencidas());
+    }
+
+    @FXML
+    private void actionVerDespesasPendentesVencidas(ActionEvent event) {
+        popularTabela(new ContaDAO().findDespesasPendentesVencidas());
+    }
+
+    @FXML
+    private void actionNovaReceita(ActionEvent event) {
+//        todo nova receita
+    }
+
+    @FXML
+    private void actionNovaDespesa(ActionEvent event) {
+//        todo nova despesa
+    }
+
+    @FXML
+    private void actionNovaCategoria(ActionEvent event) {
+//        todo nova categoria
+    }
+
+    @FXML
+    private void actionSobre(ActionEvent event) {
+//        todo sobre
+    }
+
+    @FXML
+    private void actionSair(ActionEvent event) {
+        System.exit(0);
     }
 }

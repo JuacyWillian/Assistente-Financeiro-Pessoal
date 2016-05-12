@@ -78,7 +78,7 @@ public class ContaDAO {
 
     public List<Conta> findAll() {
         String sql = "select * from contas "
-                + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id";
         List<Conta> contaList = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -112,7 +112,7 @@ public class ContaDAO {
 
     public Conta findById(int id) {
         String sql = "select * from contas where contas.id=? "
-                + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id";
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, id);
@@ -146,7 +146,7 @@ public class ContaDAO {
 
     public List<Conta> findByCategoria(Categoria cat) {
         String sql = "SELECT * FROM contas WHERE cat_id=?; "
-                + "LEFT JOIN categorias ON contas.cat_id = categorias.id;";
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -175,7 +175,7 @@ public class ContaDAO {
         return contas;
     }
 
-    public List<Conta> findQuitadas() {
+    public List<Conta> findDespesasQuitadas() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
                 + "ON contas.cat_id=categorias.id WHERE quitado=true";
         List<Conta> contas = new ArrayList();
@@ -210,7 +210,7 @@ public class ContaDAO {
         return contas;
     }
 
-    public List<Conta> findPendentes() {
+    public List<Conta> findDespesasPendentes() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
                 + "ON contas.cat_id=categorias.id WHERE quitado=false";
         List<Conta> contas = new ArrayList();
@@ -245,7 +245,7 @@ public class ContaDAO {
         return contas;
     }
 
-    public List<Conta> findVencidas() {
+    public List<Conta> findDespesasVencidas() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
                 + "ON contas.cat_id=categorias.id WHERE dt_vencimento<curdate()";
         List<Conta> contas = new ArrayList();
@@ -280,7 +280,7 @@ public class ContaDAO {
         return contas;
     }
 
-    public List<Conta> findPendentesVencidas() {
+    public List<Conta> findDespesasPendentesVencidas() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias ON contas.cat_id=categorias.id "
                 + "WHERE dt_vencimento<curdate() AND quitado=false";
         List<Conta> contas = new ArrayList();
@@ -313,5 +313,75 @@ public class ContaDAO {
             ex.printStackTrace();
         }
         return contas;
+    }
+
+    public List<Conta> findAllReceitas() {
+        String sql = "select * from contas "
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
+                + "WHERE contas.tipo=?";
+        List<Conta> contaList = new ArrayList();
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setString(1, ContaTipo.RECEITA.name());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Conta c = new Conta();
+                c.setId(rs.getInt("contas.id"));
+                c.setTitulo(rs.getString("contas.titulo"));
+                c.setDescricao(rs.getString("contas.descricao"));
+
+                Categoria cat = new Categoria();
+                cat.setId(rs.getInt("categorias.id"));
+                cat.setTitulo(rs.getString("categorias.titulo"));
+                cat.setDescricao(rs.getString("categorias.descricao"));
+
+                c.setCategoria(cat);
+                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
+                c.setValor(rs.getLong("contas.valor"));
+                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
+                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
+                c.setQuitado(rs.getBoolean("contas.quitado"));
+
+                contaList.add(c);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return contaList;
+    }
+
+    public List<Conta> findAllDespesas() {
+        String sql = "select * from contas "
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
+                + "WHERE contas.tipo=?";
+        List<Conta> contaList = new ArrayList();
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setString(1, ContaTipo.DESPESA.name());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Conta c = new Conta();
+                c.setId(rs.getInt("contas.id"));
+                c.setTitulo(rs.getString("contas.titulo"));
+                c.setDescricao(rs.getString("contas.descricao"));
+
+                Categoria cat = new Categoria();
+                cat.setId(rs.getInt("categorias.id"));
+                cat.setTitulo(rs.getString("categorias.titulo"));
+                cat.setDescricao(rs.getString("categorias.descricao"));
+
+                c.setCategoria(cat);
+                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
+                c.setValor(rs.getLong("contas.valor"));
+                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
+                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
+                c.setQuitado(rs.getBoolean("contas.quitado"));
+
+                contaList.add(c);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return contaList;
     }
 }

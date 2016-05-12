@@ -112,12 +112,12 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="%gui.principal.menuarquivo">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="%gui.principal.menuarquivo.novareceita" />
-                                <MenuItem mnemonicParsing="false" text="%gui.principal.menuarquivo.novadespesa" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionNovaReceita" text="%gui.principal.menuarquivo.novareceita" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionNovaDespesa" text="%gui.principal.menuarquivo.novadespesa" />
                                 <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" text="%gui.principal.menuarquivo.novacategoria" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionNovaCategoria" text="%gui.principal.menuarquivo.novacategoria" />
                                 <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" text="%gui.principal.menuarquivo.sair" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionSair" text="%gui.principal.menuarquivo.sair" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="%gui.principal.editar">
@@ -131,15 +131,19 @@
                         <Menu mnemonicParsing="false" text="%gui.principal.menuvisualizar">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#actionVerTodas" text="%gui.principal.menuvisualizar.todas" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerQuitadas" text="%gui.principal.menuvisualizar.quitadas" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerPendentes" text="%gui.principal.menuvisualizar.pendentes" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerVencidas" text="%gui.principal.menuvisualizar.vencidas" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerPendentesVencidas" text="%gui.principal.menuvisualizar.pendentesvencidas" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerReceitas" text="%gui.principal.menuvisualizar.receitas" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesas" text="%gui.principal.menuvisualizar.despesas" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasQuitadas" text="%gui.principal.menuvisualizar.quitadas" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasPendentes" text="%gui.principal.menuvisualizar.pendentes" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasVencidas" text="%gui.principal.menuvisualizar.vencidas" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasPendentesVencidas" text="%gui.principal.menuvisualizar.pendentesvencidas" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="%gui.principal.menuajuda">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="%gui.principal.menuajuda.sobre" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionSobre" text="%gui.principal.menuajuda.sobre" />
                             </items>
                         </Menu>
                     </menus>

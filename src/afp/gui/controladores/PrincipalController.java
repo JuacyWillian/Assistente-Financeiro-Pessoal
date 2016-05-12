@@ -36,7 +36,6 @@ public class PrincipalController implements Initializable {
         // TODO
         ContaDAO dao = new ContaDAO();
         List<Conta> list = dao.findAll();
-//        list.toString();
         System.out.println(list.toString());
     }
 

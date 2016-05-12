@@ -30,9 +30,9 @@
                         <TableColumn fx:id="tbcCategoria" prefWidth="130.0" text="Categoria" />
                         <TableColumn fx:id="tbcVencimento" prefWidth="100.0" text="Vencimento" />
                     </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
                 </TableView>
                 <FlowPane fx:id="detail" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" rowValignment="TOP" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
                     <children>
@@ -131,10 +131,10 @@
                         <Menu mnemonicParsing="false" text="%gui.principal.menuvisualizar">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#actionVerTodas" text="%gui.principal.menuvisualizar.todas" />
-                        <MenuItem mnemonicParsing="false" onAction="#actionVerQuitadas" text="%gui.principal.menuvisualizar.quitadas" />
-                        <MenuItem mnemonicParsing="false" onAction="#actionVerPendentes" text="%gui.principal.menuvisualizar.pendentes" />
-                        <MenuItem mnemonicParsing="false" onAction="#actionVerVencidas" text="%gui.principal.menuvisualizar.vencidas" />
-                        <MenuItem mnemonicParsing="false" onAction="#actionVerPendentesVencidas" text="%gui.principal.menuvisualizar.pendentesvencidas" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerQuitadas" text="%gui.principal.menuvisualizar.quitadas" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerPendentes" text="%gui.principal.menuvisualizar.pendentes" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerVencidas" text="%gui.principal.menuvisualizar.vencidas" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerPendentesVencidas" text="%gui.principal.menuvisualizar.pendentesvencidas" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="%gui.principal.menuajuda">

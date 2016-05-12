@@ -10,13 +10,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import static javafx.print.Paper.C;
 import javafx.scene.control.Label;
-import javafx.scene.control.SortEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import static javafx.scene.input.KeyCode.C;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -65,20 +62,22 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionSelecionar(MouseEvent event) {
-        TableView.TableViewSelectionModel selectionModel = tbvContas.getSelectionModel();
-        Conta conta = (Conta) selectionModel.getSelectedItem();
-        
-        lbTitulo.setText(conta.getTitulo());
-        lbDescricao.setText(conta.getDescricao());
-        lbData.setText(conta.getDtCriacao().toString());
-        lbCategoria.setText(conta.getCategoria().getTitulo());
-        lbTipo.setText(conta.getTipo().name());
-        lbValor.setText(""+conta.getValor());
-        lbVencimento.setText(conta.getDtVencimento().toString());
-        lbQuitado.setText(conta.isQuitado()?"Quitado":"Pendente");
+        popularDetalhes((Conta) tbvContas.getSelectionModel().getSelectedItem());
     }
-    
-    private void popularTabela(List<Conta> lista){
+
+    private void popularDetalhes(Conta c) {
+
+        lbTitulo.setText(c.getTitulo());
+        lbDescricao.setText(c.getDescricao());
+        lbData.setText(c.getDtCriacao().toString());
+        lbCategoria.setText(c.getCategoria().getTitulo());
+        lbTipo.setText(c.getTipo().name());
+        lbValor.setText("" + c.getValor());
+        lbVencimento.setText(c.getDtVencimento().toString());
+        lbQuitado.setText(c.isQuitado() ? "Quitado" : "Pendente");
+    }
+
+    private void popularTabela(List<Conta> lista) {
         lista.stream().forEach((c) -> {
             tbcData.setCellValueFactory(new PropertyValueFactory<>("dtCriacao"));
             tbcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));

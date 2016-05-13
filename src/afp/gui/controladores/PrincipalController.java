@@ -89,7 +89,7 @@ public class PrincipalController implements Initializable {
         lbTipo.setText(c.getTipo().name());
         lbValor.setText("" + moedaFormatter.format(c.getValor()));
         lbVencimento.setText(c.getDtCriacao().format(dateFormatter));
-        lbQuitado.setText(c.isQuitado() ? "Quitado" : "Pendente");
+        lbQuitado.setText(c.isQuitado() ? bundle.getString("quitado") : bundle.getString("pendente"));
     }
 
     private void popularTabela(List<Conta> lista) {

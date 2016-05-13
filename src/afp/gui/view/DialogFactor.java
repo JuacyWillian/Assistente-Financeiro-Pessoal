@@ -84,19 +84,37 @@ public class DialogFactor {
         TextArea txDescricao = new TextArea();
         ComboBox<Categoria> cbbCategoria = new ComboBox<>();
         ComboBox<ContaTipo> cbbtipo = new ComboBox<>();
-        TextField txValor = new TextField();
+        TextField txValor = new TextField(){
+            @Override public void replaceText(int start, int end, String text) {
+                // If the replaced text would end up being invalid, then simply
+                // ignore this call!
+                if (!text.matches("[a-z]")) {
+                    super.replaceText(start, end, text);
+                }
+            }
+
+            @Override public void replaceSelection(String text) {
+                if (!text.matches("[a-z]")) {
+                    super.replaceSelection(text);
+                }
+            }
+        };
+        
         DatePicker dtCriacao = new DatePicker(LocalDate.now());
         DatePicker dtVencimento = new DatePicker();
         CheckBox cbQuitado = new CheckBox();
+        List<Categoria> cats = new CategoriaDAO().findAll();
+        cbbCategoria.getItems().addAll(cats);
+        cbbtipo.getItems().addAll(ContaTipo.values());
+        
+        cbbCategoria.setPromptText(rb.getString("conta.dialog.categorias.prompt"));
+        cbbtipo.setPromptText(rb.getString("conta.dialog.tipo.prompt"));
 
         if (c != null) {
             title = rb.getString("conta.dialog.tituloeditar");
             txTitulo.setText(c.getTitulo());
             txDescricao.setText(c.getDescricao());
-            List<Categoria> cats = new CategoriaDAO().findAll();
-            cbbCategoria.getItems().addAll(cats);
             cbbCategoria.setValue(c.getCategoria());
-            cbbtipo.getItems().addAll(ContaTipo.values());
             cbbtipo.setValue(ct);
             dtCriacao.setValue(c.getDtCriacao());
             dtVencimento.setValue(c.getDtVencimento());

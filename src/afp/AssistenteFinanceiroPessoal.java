@@ -33,7 +33,7 @@ public class AssistenteFinanceiroPessoal extends Application {
     public void setScene(TelasEnum screen) {
         try {
             Parent root = FXMLLoader.load(
-                    getClass().getClassLoader().getResource(screen.getPath()), 
+                    getClass().getClassLoader().getResource(screen.getPath()),
                     bundle);
             primaryStage.setScene(new Scene(root));
             primaryStage.show();

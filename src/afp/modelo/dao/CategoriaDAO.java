@@ -60,7 +60,7 @@ public class CategoriaDAO {
     }
 
     public List<Categoria> findAll() {
-        String sql = "select * from categorias";
+        String sql = "select * from categorias order by categorias.titulo asc";
         List<Categoria> categoriaList = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {

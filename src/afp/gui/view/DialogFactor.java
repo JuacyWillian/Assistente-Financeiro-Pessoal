@@ -20,23 +20,23 @@ import javafx.scene.layout.GridPane;
 
 public class DialogFactor {
 
-    private DialogFactor() {}
-    
-    public static Dialog getCategoriaDialog(Categoria c, ResourceBundle rb){
+    private DialogFactor() {
+    }
+
+    public static Dialog getCategoriaDialog(Categoria c, ResourceBundle rb) {
         String title;
-        
+
         TextField txTitulo = new TextField();
         TextArea txDescricao = new TextArea();
-        
-        if(c!=null){
+
+        if (c != null) {
             title = rb.getString("categoria.dialog.tituloeditar");
             txTitulo.setText(c.getTitulo());
             txDescricao.setText(c.getDescricao());
-        }else{
+        } else {
             title = rb.getString("categoria.dialog.titulonova");
         }
-        
-        
+
         Dialog<Categoria> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setResizable(false);
@@ -46,25 +46,30 @@ public class DialogFactor {
         txDescricao.setMaxHeight(200.0);
 
         GridPane grid = new GridPane();
+        grid.setVgap(5);
+        grid.setHgap(5);
+
         grid.add(lbTitulo, 1, 1);
         grid.add(txTitulo, 2, 1);
         grid.add(lbDescricao, 1, 2);
         grid.add(txDescricao, 2, 2);
+
         dialog.getDialogPane().setContent(grid);
 
         ButtonType btnOK = new ButtonType(rb.getString("categoria.dialog.ok"), ButtonBar.ButtonData.OK_DONE);
         ButtonType btnCancel = new ButtonType(rb.getString("categoria.dialog.cancelar"), ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().add(btnOK);
         dialog.getDialogPane().getButtonTypes().add(btnCancel);
-        
 
         dialog.setResultConverter((ButtonType b) -> {
-            if (c!=null){
+            if (c != null) {
                 c.setTitulo(txTitulo.getText());
                 c.setDescricao(txDescricao.getText(0, 140));
-                if (b == btnOK) return c;
-            }else{
-                if (b == btnOK) return new Categoria(txTitulo.getText(), txDescricao.getText());
+                if (b == btnOK) {
+                    return c;
+                }
+            } else if (b == btnOK) {
+                return new Categoria(txTitulo.getText(), txDescricao.getText());
             }
             return null;
         });
@@ -72,9 +77,9 @@ public class DialogFactor {
         return dialog;
     }
 
-    public static Dialog getContaDialog(Conta c, ContaTipo ct, ResourceBundle rb){
+    public static Dialog getContaDialog(Conta c, ContaTipo ct, ResourceBundle rb) {
         String title;
-        
+
         TextField txTitulo = new TextField();
         TextArea txDescricao = new TextArea();
         ComboBox<Categoria> cbbCategoria = new ComboBox<>();
@@ -82,50 +87,74 @@ public class DialogFactor {
         TextField txValor = new TextField();
         DatePicker dtCriacao = new DatePicker(LocalDate.now());
         DatePicker dtVencimento = new DatePicker();
-        CheckBox cbQuitado = new CheckBox("Quitado");
-        
-        
-        if(c!=null){
-            title = rb.getString("categoria.dialog.tituloeditar");
+        CheckBox cbQuitado = new CheckBox();
+
+        if (c != null) {
+            title = rb.getString("conta.dialog.tituloeditar");
             txTitulo.setText(c.getTitulo());
             txDescricao.setText(c.getDescricao());
             List<Categoria> cats = new CategoriaDAO().findAll();
             cbbCategoria.getItems().addAll(cats);
-        }else{
-            title = rb.getString("categoria.dialog.titulonova");
+            cbbCategoria.setValue(c.getCategoria());
+            cbbtipo.getItems().addAll(ContaTipo.values());
+            cbbtipo.setValue(ct);
+            dtCriacao.setValue(c.getDtCriacao());
+            dtVencimento.setValue(c.getDtVencimento());
+            cbQuitado.setSelected(c.isQuitado());
+        } else {
+            title = rb.getString("conta.dialog.titulonova");
         }
-        
-        
+
         Dialog<Conta> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setResizable(false);
 
-        Label lbTitulo = new Label(rb.getString("categoria.dialog.titulo"));
-        Label lbDescricao = new Label(rb.getString("categoria.dialog.descricao"));
-        Label lbTipo = new Label(rb.getString("categoria.dialog.descricao"));
-        Label lbCategoria = new Label(rb.getString("categoria.dialog.descricao"));
-        Label lbValor = new Label(rb.getString("categoria.dialog.descricao"));
-        Label lbCriacao = new Label(rb.getString("categoria.dialog.descricao"));
-        Label lbVencimento = new Label(rb.getString("categoria.dialog.descricao"));
-        Label lbQuitado = new Label(rb.getString("categoria.dialog.descricao"));
-        txDescricao.setMaxHeight(200.0);
+        Label lbTitulo = new Label(rb.getString("conta.dialog.titulo"));
+        Label lbDescricao = new Label(rb.getString("conta.dialog.descricao"));
+        Label lbTipo = new Label(rb.getString("conta.dialog.tipo"));
+        Label lbCategoria = new Label(rb.getString("conta.dialog.categoria"));
+        Label lbValor = new Label(rb.getString("conta.dialog.valor"));
+        Label lbCriacao = new Label(rb.getString("conta.dialog.criacao"));
+        Label lbVencimento = new Label(rb.getString("conta.dialog.vencimento"));
+        Label lbQuitado = new Label(rb.getString("conta.dialog.quitado"));
 
         GridPane grid = new GridPane();
+        grid.setVgap(5);
+        grid.setHgap(5);
+//        grid.setPadding(new Insets(5));
+
         grid.add(lbTitulo, 1, 1);
         grid.add(txTitulo, 2, 1);
+
         grid.add(lbDescricao, 1, 2);
         grid.add(txDescricao, 2, 2);
+
+        grid.add(lbTipo, 1, 3);
+        grid.add(cbbtipo, 2, 3);
+
+        grid.add(lbCategoria, 1, 4);
+        grid.add(cbbCategoria, 2, 4);
+
+        grid.add(lbValor, 1, 5);
+        grid.add(txValor, 2, 5);
+
+        grid.add(lbCriacao, 1, 6);
+        grid.add(dtCriacao, 2, 6);
+
+        grid.add(lbVencimento, 1, 7);
+        grid.add(dtVencimento, 2, 7);
+
+        grid.add(lbQuitado, 1, 8);
+        grid.add(cbQuitado, 2, 8);
+
         dialog.getDialogPane().setContent(grid);
 
-        ButtonType btnOK = new ButtonType(rb.getString("categoria.dialog.ok"), ButtonBar.ButtonData.OK_DONE);
-        ButtonType btnCancel = new ButtonType(rb.getString("categoria.dialog.cancelar"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType btnOK = new ButtonType(rb.getString("conta.dialog.ok"), ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(btnOK);
-        dialog.getDialogPane().getButtonTypes().add(btnCancel);
-        
 
         dialog.setResultConverter((ButtonType b) -> {
-            
-            if (c != null){
+
+            if (c != null) {
                 c.setTitulo(txTitulo.getText());
                 c.setDescricao(txDescricao.getText());
                 c.setTipo(cbbtipo.getValue());
@@ -134,11 +163,13 @@ public class DialogFactor {
                 c.setDtCriacao(dtCriacao.getValue());
                 c.setDtVencimento(dtVencimento.getValue());
                 c.setQuitado(cbQuitado.isSelected());
-                
-                if (b == btnOK) return c;
-                
-            }else{
-                
+
+                if (b == btnOK) {
+                    return c;
+                }
+
+            } else {
+
                 Conta conta = new Conta();
                 conta.setTitulo(txTitulo.getText());
                 conta.setDescricao(txDescricao.getText());
@@ -148,8 +179,10 @@ public class DialogFactor {
                 conta.setDtCriacao(dtCriacao.getValue());
                 conta.setDtVencimento(dtVencimento.getValue());
                 conta.setQuitado(cbQuitado.isSelected());
-                
-                if (b == btnOK) return conta;
+
+                if (b == btnOK) {
+                    return conta;
+                }
             }
             return null;
         });

@@ -24,8 +24,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.stage.Modality;
-import javafx.util.Pair;
 
 public class PrincipalController implements Initializable {
 
@@ -169,7 +167,7 @@ public class PrincipalController implements Initializable {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Assistente Financeiro Pessoal");
         alert.setHeaderText("Information Alert");
-        String s ="This is an example of JavaFX 8 Dialogs... ";
+        String s = "This is an example of JavaFX 8 Dialogs... ";
         alert.setContentText(s);
         alert.show();
 //        todo sobre

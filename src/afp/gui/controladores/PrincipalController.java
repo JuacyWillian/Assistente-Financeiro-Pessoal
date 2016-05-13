@@ -7,8 +7,12 @@ import afp.modelo.dao.CategoriaDAO;
 import afp.modelo.dao.ContaDAO;
 import afp.util.ContaTipo;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -60,12 +64,16 @@ public class PrincipalController implements Initializable {
     @FXML
     private Label lbQuitado;
     private ResourceBundle bundle;
+    private NumberFormat moedaFormatter;
+    private DateTimeFormatter dateFormatter;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         bundle = rb;
         popularTabela(new ContaDAO().findAll());
+        dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", bundle.getLocale());
+        moedaFormatter = NumberFormat.getCurrencyInstance(bundle.getLocale());
     }
 
     @FXML
@@ -74,14 +82,13 @@ public class PrincipalController implements Initializable {
     }
 
     private void popularDetalhes(Conta c) {
-
         lbTitulo.setText(c.getTitulo());
         lbDescricao.setText(c.getDescricao());
-        lbData.setText(c.getDtCriacao().toString());
+        lbData.setText(c.getDtCriacao().format(dateFormatter));
         lbCategoria.setText(c.getCategoria().getTitulo());
         lbTipo.setText(c.getTipo().name());
-        lbValor.setText("" + c.getValor());
-        lbVencimento.setText(c.getDtVencimento().toString());
+        lbValor.setText("" + moedaFormatter.format(c.getValor()));
+        lbVencimento.setText(c.getDtCriacao().format(dateFormatter));
         lbQuitado.setText(c.isQuitado() ? "Quitado" : "Pendente");
     }
 

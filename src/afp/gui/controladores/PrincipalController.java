@@ -1,15 +1,22 @@
 package afp.gui.controladores;
 
+import afp.gui.view.DialogFactor;
 import afp.modelo.Categoria;
 import afp.modelo.Conta;
+import afp.modelo.dao.CategoriaDAO;
 import afp.modelo.dao.ContaDAO;
+import afp.util.ContaTipo;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,6 +24,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Modality;
+import javafx.util.Pair;
 
 public class PrincipalController implements Initializable {
 
@@ -52,10 +61,12 @@ public class PrincipalController implements Initializable {
     private Label lbVencimento;
     @FXML
     private Label lbQuitado;
+    private ResourceBundle bundle;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        bundle = rb;
         popularTabela(new ContaDAO().findAll());
     }
 
@@ -125,21 +136,42 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionNovaReceita(ActionEvent event) {
-//        todo nova receita
+        Dialog dialog = DialogFactor.getContaDialog(null, ContaTipo.RECEITA, bundle);
+        Optional<Conta> result = (Optional<Conta>) dialog.showAndWait();
+
+        if (result.isPresent()) {
+            new ContaDAO().insert(result.get());
+        }
     }
 
     @FXML
     private void actionNovaDespesa(ActionEvent event) {
-//        todo nova despesa
+        Dialog dialog = DialogFactor.getContaDialog(null, ContaTipo.DESPESA, bundle);
+        Optional<Conta> result = (Optional<Conta>) dialog.showAndWait();
+
+        if (result.isPresent()) {
+            new ContaDAO().insert(result.get());
+        }
     }
 
     @FXML
     private void actionNovaCategoria(ActionEvent event) {
-//        todo nova categoria
+        Dialog dialog = DialogFactor.getCategoriaDialog(null, bundle);
+        Optional<Categoria> result = (Optional<Categoria>) dialog.showAndWait();
+
+        if (result.isPresent()) {
+            new CategoriaDAO().insert(result.get());
+        }
     }
 
     @FXML
     private void actionSobre(ActionEvent event) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Assistente Financeiro Pessoal");
+        alert.setHeaderText("Information Alert");
+        String s ="This is an example of JavaFX 8 Dialogs... ";
+        alert.setContentText(s);
+        alert.show();
 //        todo sobre
     }
 

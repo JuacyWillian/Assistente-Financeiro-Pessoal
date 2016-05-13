@@ -19,7 +19,6 @@ public class AssistenteFinanceiroPessoal extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
     }
 
     @Override
@@ -33,7 +32,9 @@ public class AssistenteFinanceiroPessoal extends Application {
 
     public void setScene(TelasEnum screen) {
         try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(screen.getPath()), bundle);
+            Parent root = FXMLLoader.load(
+                    getClass().getClassLoader().getResource(screen.getPath()), 
+                    bundle);
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
 

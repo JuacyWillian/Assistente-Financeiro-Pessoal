@@ -7,12 +7,10 @@ import afp.modelo.dao.CategoriaDAO;
 import afp.modelo.dao.ContaDAO;
 import afp.util.ContaTipo;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -66,14 +64,16 @@ public class PrincipalController implements Initializable {
     private ResourceBundle bundle;
     private NumberFormat moedaFormatter;
     private DateTimeFormatter dateFormatter;
+    private DateTimeFormatter dateFormat;
+    private NumberFormat moedaFormat;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         bundle = rb;
         popularTabela(new ContaDAO().findAll());
-        dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", bundle.getLocale());
-        moedaFormatter = NumberFormat.getCurrencyInstance(bundle.getLocale());
+        dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy", bundle.getLocale());
+        moedaFormat = NumberFormat.getCurrencyInstance(bundle.getLocale());
     }
 
     @FXML
@@ -84,11 +84,11 @@ public class PrincipalController implements Initializable {
     private void popularDetalhes(Conta c) {
         lbTitulo.setText(c.getTitulo());
         lbDescricao.setText(c.getDescricao());
-        lbData.setText(c.getDtCriacao().format(dateFormatter));
+        lbData.setText(c.getDtCriacao().format(dateFormat));
         lbCategoria.setText(c.getCategoria().getTitulo());
         lbTipo.setText(c.getTipo().name());
-        lbValor.setText("" + moedaFormatter.format(c.getValor()));
-        lbVencimento.setText(c.getDtCriacao().format(dateFormatter));
+        lbValor.setText("" + moedaFormat.format(c.getValor()));
+        lbVencimento.setText(c.getDtCriacao().format(dateFormat));
         lbQuitado.setText(c.isQuitado() ? bundle.getString("quitado") : bundle.getString("pendente"));
     }
 
@@ -152,11 +152,18 @@ public class PrincipalController implements Initializable {
     @FXML
     private void actionNovaDespesa(ActionEvent event) {
         Dialog dialog = DialogFactor.getContaDialog(null, ContaTipo.DESPESA, bundle);
-        Optional<Conta> result = (Optional<Conta>) dialog.showAndWait();
+        Optional<List<Conta>> result = (Optional<List<Conta>>) dialog.showAndWait();
 
         if (result.isPresent()) {
-            new ContaDAO().insert(result.get());
+            List<Conta> list = result.get();
+            int max = list.size();
+            
+            list.stream().forEach((c)->{
+                
+            });
         }
+        
+        
     }
 
     @FXML

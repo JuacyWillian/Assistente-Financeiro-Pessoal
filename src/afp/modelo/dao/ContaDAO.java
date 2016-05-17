@@ -43,9 +43,9 @@ public class ContaDAO {
 
     public void update(Conta c) {
         String sql = "UPDATE contas "
-                + "SET (titulo=?, descricao=?, cat_id=?, tipo=?, "
-                + "valor=?, dt_criacao=?, dt_vencimento=?, quitado=?) "
-                + "WHERE contas.id=?;";
+                + "SET contas.titulo=?, contas.descricao=?, contas.cat_id=?, contas.tipo=?, "
+                + "contas.valor=?, contas.dt_criacao=?, contas.dt_vencimento=?, contas.quitado=? "
+                + "WHERE contas.id=?";
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, c.getTitulo());

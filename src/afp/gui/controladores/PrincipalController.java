@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -25,7 +26,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 
 public class PrincipalController implements Initializable {
 
@@ -44,8 +44,6 @@ public class PrincipalController implements Initializable {
     @FXML
     private TableColumn<Conta, LocalDate> tbcVencimento;
     @FXML
-    private FlowPane detail;
-    @FXML
     private Label lbTitulo;
     @FXML
     private Label lbDescricao;
@@ -60,12 +58,14 @@ public class PrincipalController implements Initializable {
     @FXML
     private Label lbVencimento;
     @FXML
-    private Label lbQuitado;
+    private Label lbSituacao;
+
     private ResourceBundle bundle;
     private NumberFormat moedaFormatter;
     private DateTimeFormatter dateFormatter;
     private DateTimeFormatter dateFormat;
     private NumberFormat moedaFormat;
+    private Conta contaDetalhada;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,18 +78,22 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionSelecionar(MouseEvent event) {
-        popularDetalhes((Conta) tbvContas.getSelectionModel().getSelectedItem());
+        contaDetalhada = (Conta) tbvContas.getSelectionModel().getSelectedItem();
+
+        if (contaDetalhada != null) {
+            popularDetalhes(contaDetalhada);
+        }
     }
 
     private void popularDetalhes(Conta c) {
         lbTitulo.setText(c.getTitulo());
         lbDescricao.setText(c.getDescricao());
-        lbData.setText(c.getDtCriacao().format(dateFormat));
+        lbData.setText(c.getDtCriacao().toString());
         lbCategoria.setText(c.getCategoria().getTitulo());
         lbTipo.setText(c.getTipo().name());
         lbValor.setText("" + moedaFormat.format(c.getValor()));
-        lbVencimento.setText(c.getDtCriacao().format(dateFormat));
-        lbQuitado.setText(c.isQuitado() ? bundle.getString("quitado") : bundle.getString("pendente"));
+        lbVencimento.setText(c.getDtCriacao().toString());
+        lbSituacao.setText(c.isQuitado() ? "quitado" : "pendente");
     }
 
     private void popularTabela(List<Conta> lista) {
@@ -141,7 +145,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionNovaReceita(ActionEvent event) {
-        Dialog dialog = DialogFactor.getContaDialog(null, ContaTipo.RECEITA, bundle);
+        Dialog dialog = DialogFactor.getContaDialog(null, ContaTipo.RECEITA, null);
         Optional<Conta> result = (Optional<Conta>) dialog.showAndWait();
 
         if (result.isPresent()) {
@@ -151,24 +155,23 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionNovaDespesa(ActionEvent event) {
-        Dialog dialog = DialogFactor.getContaDialog(null, ContaTipo.DESPESA, bundle);
+        Dialog dialog = DialogFactor.getContaDialog(null, ContaTipo.DESPESA, null);
         Optional<List<Conta>> result = (Optional<List<Conta>>) dialog.showAndWait();
 
         if (result.isPresent()) {
             List<Conta> list = result.get();
             int max = list.size();
-            
-            list.stream().forEach((c)->{
-                
+
+            list.stream().forEach((c) -> {
+
             });
         }
-        
-        
+
     }
 
     @FXML
     private void actionNovaCategoria(ActionEvent event) {
-        Dialog dialog = DialogFactor.getCategoriaDialog(null, bundle);
+        Dialog dialog = DialogFactor.getCategoriaDialog(null, null);
         Optional<Categoria> result = (Optional<Categoria>) dialog.showAndWait();
 
         if (result.isPresent()) {
@@ -190,5 +193,38 @@ public class PrincipalController implements Initializable {
     @FXML
     private void actionSair(ActionEvent event) {
         System.exit(0);
+    }
+
+    @FXML
+    private void actionNova(ActionEvent event) {
+    }
+
+    @FXML
+    private void actionEditar(ActionEvent event) {
+        Dialog dialog = DialogFactor.getContaDialog(contaDetalhada, contaDetalhada.getTipo(), bundle);
+        Optional<Conta> result = (Optional<Conta>) dialog.showAndWait();
+
+        if (result.isPresent()) {
+            Conta c = result.get();
+            new ContaDAO().update(c);
+        }
+        actionVerTodas(event);
+
+    }
+
+    @FXML
+    private void actionExcluir(ActionEvent event) {
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Excluir Conta");
+        alert.setContentText("Você tem certeza que deseja excluir esta conta?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            new ContaDAO().delete(contaDetalhada);
+            actionVerTodas(event);
+        } else {
+
+        }
     }
 }

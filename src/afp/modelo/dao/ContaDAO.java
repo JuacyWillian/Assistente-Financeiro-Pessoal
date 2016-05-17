@@ -78,7 +78,8 @@ public class ContaDAO {
 
     public List<Conta> findAll() {
         String sql = "select * from contas "
-                + "LEFT JOIN categorias ON contas.cat_id = categorias.id";
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
+                + "ORDER BY contas.dt_criacao DESC";
         List<Conta> contaList = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -146,7 +147,8 @@ public class ContaDAO {
 
     public List<Conta> findByCategoria(Categoria cat) {
         String sql = "SELECT * FROM contas WHERE cat_id=?; "
-                + "LEFT JOIN categorias ON contas.cat_id = categorias.id";
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
+                + "ORDER BY contas.dt_criacao DESC";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -177,7 +179,8 @@ public class ContaDAO {
 
     public List<Conta> findDespesasQuitadas() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
-                + "ON contas.cat_id=categorias.id WHERE quitado=true";
+                + "ON contas.cat_id=categorias.id WHERE quitado=true "
+                + "ORDER BY contas.dt_criacao DESC";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -212,7 +215,8 @@ public class ContaDAO {
 
     public List<Conta> findDespesasPendentes() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
-                + "ON contas.cat_id=categorias.id WHERE quitado=false";
+                + "ON contas.cat_id=categorias.id WHERE quitado=false "
+                + "ORDER BY contas.dt_criacao DESC";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -247,7 +251,8 @@ public class ContaDAO {
 
     public List<Conta> findDespesasVencidas() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
-                + "ON contas.cat_id=categorias.id WHERE dt_vencimento<curdate()";
+                + "ON contas.cat_id=categorias.id WHERE dt_vencimento<curdate() "
+                + "ORDER BY contas.dt_vencimento DESC";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -282,7 +287,8 @@ public class ContaDAO {
 
     public List<Conta> findDespesasPendentesVencidas() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias ON contas.cat_id=categorias.id "
-                + "WHERE dt_vencimento<curdate() AND quitado=false";
+                + "WHERE dt_vencimento<curdate() AND quitado=false "
+                + "ORDER BY contas.dt_vencimento DESC";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -318,7 +324,8 @@ public class ContaDAO {
     public List<Conta> findAllReceitas() {
         String sql = "select * from contas "
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
-                + "WHERE contas.tipo=?";
+                + "WHERE contas.tipo=? "
+                + "ORDER BY contas.dt_criacao DESC";
         List<Conta> contaList = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -353,7 +360,8 @@ public class ContaDAO {
     public List<Conta> findAllDespesas() {
         String sql = "select * from contas "
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
-                + "WHERE contas.tipo=?";
+                + "WHERE contas.tipo=? "
+                + "ORDER BY contas.dt_vencimento DESC";
         List<Conta> contaList = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {

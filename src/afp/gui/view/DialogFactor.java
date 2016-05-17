@@ -7,6 +7,8 @@ import afp.util.ContaTipo;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -33,6 +35,7 @@ public class DialogFactor {
             title = rb.getString("categoria.dialog.tituloeditar");
             txTitulo.setText(c.getTitulo());
             txDescricao.setText(c.getDescricao());
+
         } else {
             title = rb.getString("categoria.dialog.titulonova");
         }
@@ -57,23 +60,30 @@ public class DialogFactor {
         dialog.getDialogPane().setContent(grid);
 
         ButtonType btnOK = new ButtonType(rb.getString("categoria.dialog.ok"), ButtonBar.ButtonData.OK_DONE);
-        ButtonType btnCancel = new ButtonType(rb.getString("categoria.dialog.cancelar"), ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().add(btnOK);
-        dialog.getDialogPane().getButtonTypes().add(btnCancel);
 
         dialog.setResultConverter((ButtonType b) -> {
-            if (c != null) {
-                c.setTitulo(txTitulo.getText());
-                c.setDescricao(txDescricao.getText(0, 140));
-                if (b == btnOK) {
-                    return c;
+
+            if (txTitulo.getText().isEmpty() && txDescricao.getText().isEmpty()) {
+                if (c != null) {
+                    c.setTitulo(txTitulo.getText());
+                    c.setDescricao(txDescricao.getText(0, 140));
+                    if (b == btnOK) {
+
+                        return c;
+                    }
+                } else if (b == btnOK) {
+                    return new Categoria(txTitulo.getText(), txDescricao.getText());
                 }
-            } else if (b == btnOK) {
-                return new Categoria(txTitulo.getText(), txDescricao.getText());
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.showAndWait();
+
             }
             return null;
-        });
-
+        }
+        );
         return dialog;
     }
 
@@ -84,8 +94,9 @@ public class DialogFactor {
         TextArea txDescricao = new TextArea();
         ComboBox<Categoria> cbbCategoria = new ComboBox<>();
         ComboBox<ContaTipo> cbbtipo = new ComboBox<>();
-        TextField txValor = new TextField(){
-            @Override public void replaceText(int start, int end, String text) {
+        TextField txValor = new TextField() {
+            @Override
+            public void replaceText(int start, int end, String text) {
                 // If the replaced text would end up being invalid, then simply
                 // ignore this call!
                 if (!text.matches("[a-z]")) {
@@ -93,20 +104,23 @@ public class DialogFactor {
                 }
             }
 
-            @Override public void replaceSelection(String text) {
+            @Override
+            public void replaceSelection(String text) {
                 if (!text.matches("[a-z]")) {
                     super.replaceSelection(text);
                 }
             }
         };
-        
+
+        Button btn = new Button();
+
         DatePicker dtCriacao = new DatePicker(LocalDate.now());
         DatePicker dtVencimento = new DatePicker();
         CheckBox cbQuitado = new CheckBox();
         List<Categoria> cats = new CategoriaDAO().findAll();
         cbbCategoria.getItems().addAll(cats);
         cbbtipo.getItems().addAll(ContaTipo.values());
-        
+
         cbbCategoria.setPromptText(rb.getString("conta.dialog.categorias.prompt"));
         cbbtipo.setPromptText(rb.getString("conta.dialog.tipo.prompt"));
 

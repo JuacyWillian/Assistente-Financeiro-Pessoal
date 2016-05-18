@@ -19,9 +19,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="myPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="afp.gui.controladores.PrincipalController">
-    <bottom>
-        <HBox prefHeight="28.0" prefWidth="1024.0" BorderPane.alignment="CENTER" />
-    </bottom>
     <center>
         <SplitPane dividerPositions="0.662426614481409" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
@@ -85,7 +82,7 @@
                         <Label fx:id="lbTipo" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label fx:id="lbVencimento" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label fx:id="lbSituacao" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label fx:id="lbData" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lbData" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     </children>
                 </GridPane>
             </items>
@@ -137,4 +134,58 @@
             </children>
         </VBox>
     </top>
+   <bottom>
+        <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER_RIGHT" text="Total de Despesas:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lbDespesas" prefWidth="210.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER_RIGHT" text="Total de Receitas:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lbReceitas" prefWidth="210.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER_RIGHT" text="Saldo Atual:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lbSaldo" prefWidth="210.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

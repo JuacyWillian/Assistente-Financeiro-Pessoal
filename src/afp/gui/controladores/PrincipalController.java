@@ -29,6 +29,11 @@ import javafx.scene.layout.BorderPane;
 
 public class PrincipalController implements Initializable {
 
+    private ResourceBundle bundle;
+    private DateTimeFormatter dateFormat;
+    private NumberFormat moedaFormat;
+    private Conta contaDetalhada;
+
     @FXML
     private BorderPane myPane;
     @FXML
@@ -59,21 +64,20 @@ public class PrincipalController implements Initializable {
     private Label lbVencimento;
     @FXML
     private Label lbSituacao;
-
-    private ResourceBundle bundle;
-    private NumberFormat moedaFormatter;
-    private DateTimeFormatter dateFormatter;
-    private DateTimeFormatter dateFormat;
-    private NumberFormat moedaFormat;
-    private Conta contaDetalhada;
+    @FXML
+    private Label lbDespesas;
+    @FXML
+    private Label lbReceitas;
+    @FXML
+    private Label lbSaldo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         bundle = rb;
-        popularTabela(new ContaDAO().findAll());
         dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy", bundle.getLocale());
         moedaFormat = NumberFormat.getCurrencyInstance(bundle.getLocale());
+
+        popularTabela(new ContaDAO().findAll());
     }
 
     @FXML
@@ -145,28 +149,12 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionNovaReceita(ActionEvent event) {
-        Dialog dialog = DialogFactor.getContaDialog(null, ContaTipo.RECEITA, null);
-        Optional<Conta> result = (Optional<Conta>) dialog.showAndWait();
-
-        if (result.isPresent()) {
-            new ContaDAO().insert(result.get());
-        }
+        novaConta(ContaTipo.RECEITA, bundle);
     }
 
     @FXML
     private void actionNovaDespesa(ActionEvent event) {
-        Dialog dialog = DialogFactor.getContaDialog(null, ContaTipo.DESPESA, null);
-        Optional<List<Conta>> result = (Optional<List<Conta>>) dialog.showAndWait();
-
-        if (result.isPresent()) {
-            List<Conta> list = result.get();
-            int max = list.size();
-
-            list.stream().forEach((c) -> {
-
-            });
-        }
-
+        novaConta(ContaTipo.DESPESA, bundle);
     }
 
     @FXML
@@ -197,6 +185,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionNova(ActionEvent event) {
+
     }
 
     @FXML
@@ -209,14 +198,12 @@ public class PrincipalController implements Initializable {
             new ContaDAO().update(c);
         }
         actionVerTodas(event);
-
     }
 
     @FXML
     private void actionExcluir(ActionEvent event) {
-
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Excluir Conta");
+//        alert.setTitle("Excluir Conta");
         alert.setContentText("Você tem certeza que deseja excluir esta conta?");
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -225,6 +212,20 @@ public class PrincipalController implements Initializable {
             actionVerTodas(event);
         } else {
 
+        }
+    }
+
+    private void novaConta(ContaTipo tipo, ResourceBundle rb) {
+        Dialog dialog = DialogFactor.getContaDialog(null, tipo, rb);
+        Optional<List<Conta>> result = (Optional<List<Conta>>) dialog.showAndWait();
+
+        if (result.isPresent()) {
+            List<Conta> list = result.get();
+            ContaDAO dao = new ContaDAO();
+            list.stream().forEach((c) -> {
+                dao.insert(c);
+            });
+            actionVerTodas(null);
         }
     }
 }

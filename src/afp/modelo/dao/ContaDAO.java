@@ -80,35 +80,18 @@ public class ContaDAO {
         String sql = "select * from contas "
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
                 + "ORDER BY contas.dt_criacao DESC";
-        List<Conta> contaList = new ArrayList();
+        List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Conta c = new Conta();
-                c.setId(rs.getInt("contas.id"));
-                c.setTitulo(rs.getString("contas.titulo"));
-                c.setDescricao(rs.getString("contas.descricao"));
-
-                Categoria cat = new Categoria();
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-
-                c.setCategoria(cat);
-                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-                c.setValor(rs.getLong("contas.valor"));
-                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
-                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
-                c.setQuitado(rs.getBoolean("contas.quitado"));
-
-                contaList.add(c);
+                contas.add(popularLista(rs));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return contaList;
+        return contas;
     }
 
     public Conta findById(int id) {
@@ -120,24 +103,7 @@ public class ContaDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Conta c = new Conta();
-                c.setId(rs.getInt("contas.id"));
-                c.setTitulo(rs.getString("contas.titulo"));
-                c.setDescricao(rs.getString("contas.descricao"));
-
-                Categoria cat = new Categoria();
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-
-                c.setCategoria(cat);
-                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-                c.setValor(rs.getLong("contas.valor"));
-                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
-                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
-                c.setQuitado(rs.getBoolean("contas.quitado"));
-
-                return c;
+                return popularLista(rs);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -156,19 +122,7 @@ public class ContaDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Conta c = new Conta();
-                c.setId(rs.getInt("contas.id"));
-                c.setTitulo(rs.getString("contas.titulo"));
-                c.setDescricao(rs.getString("contas.descricao"));
-
-                c.setCategoria(cat);
-                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-                c.setValor(rs.getLong("contas.valor"));
-                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
-                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
-                c.setQuitado(rs.getBoolean("contas.quitado"));
-
-                contas.add(c);
+                contas.add(popularLista(rs));
             }
 
         } catch (Exception ex) {
@@ -179,7 +133,7 @@ public class ContaDAO {
 
     public List<Conta> findDespesasQuitadas() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
-                + "ON contas.cat_id=categorias.id WHERE quitado=true "
+                + "ON contas.cat_id=categorias.id WHERE contas.tipo='DESPESA' and quitado=true "
                 + "ORDER BY contas.dt_criacao DESC";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
@@ -187,24 +141,7 @@ public class ContaDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Conta c = new Conta();
-                Categoria cat = new Categoria();
-                c.setId(rs.getInt("contas.id"));
-                c.setTitulo(rs.getString("contas.titulo"));
-                c.setDescricao(rs.getString("contas.descricao"));
-
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-                c.setCategoria(cat);
-
-                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-                c.setValor(rs.getLong("contas.valor"));
-                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
-                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
-                c.setQuitado(rs.getBoolean("contas.quitado"));
-
-                contas.add(c);
+                contas.add(popularLista(rs));
             }
 
         } catch (Exception ex) {
@@ -215,7 +152,7 @@ public class ContaDAO {
 
     public List<Conta> findDespesasPendentes() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
-                + "ON contas.cat_id=categorias.id WHERE quitado=false "
+                + "ON contas.cat_id=categorias.id WHERE contas.tipo='DESPESA' and quitado=false "
                 + "ORDER BY contas.dt_criacao DESC";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
@@ -223,24 +160,7 @@ public class ContaDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Conta c = new Conta();
-                Categoria cat = new Categoria();
-                c.setId(rs.getInt("contas.id"));
-                c.setTitulo(rs.getString("contas.titulo"));
-                c.setDescricao(rs.getString("contas.descricao"));
-
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-                c.setCategoria(cat);
-
-                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-                c.setValor(rs.getLong("contas.valor"));
-                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
-                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
-                c.setQuitado(rs.getBoolean("contas.quitado"));
-
-                contas.add(c);
+                contas.add(popularLista(rs));
             }
 
         } catch (Exception ex) {
@@ -251,7 +171,7 @@ public class ContaDAO {
 
     public List<Conta> findDespesasVencidas() {
         String sql = "SELECT * FROM contas LEFT JOIN categorias "
-                + "ON contas.cat_id=categorias.id WHERE dt_vencimento<curdate() "
+                + "ON contas.cat_id=categorias.id WHERE  contas.tipo='DESPESA' and dt_vencimento<curdate() "
                 + "ORDER BY contas.dt_vencimento DESC";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
@@ -259,24 +179,7 @@ public class ContaDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Conta c = new Conta();
-                Categoria cat = new Categoria();
-                c.setId(rs.getInt("contas.id"));
-                c.setTitulo(rs.getString("contas.titulo"));
-                c.setDescricao(rs.getString("contas.descricao"));
-
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-                c.setCategoria(cat);
-
-                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-                c.setValor(rs.getLong("contas.valor"));
-                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
-                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
-                c.setQuitado(rs.getBoolean("contas.quitado"));
-
-                contas.add(c);
+                contas.add(popularLista(rs));
             }
 
         } catch (Exception ex) {
@@ -295,24 +198,7 @@ public class ContaDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Conta c = new Conta();
-                Categoria cat = new Categoria();
-                c.setId(rs.getInt("contas.id"));
-                c.setTitulo(rs.getString("contas.titulo"));
-                c.setDescricao(rs.getString("contas.descricao"));
-
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-                c.setCategoria(cat);
-
-                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-                c.setValor(rs.getLong("contas.valor"));
-                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
-                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
-                c.setQuitado(rs.getBoolean("contas.quitado"));
-
-                contas.add(c);
+                contas.add(popularLista(rs));
             }
 
         } catch (Exception ex) {
@@ -326,35 +212,18 @@ public class ContaDAO {
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
                 + "WHERE contas.tipo=? "
                 + "ORDER BY contas.dt_criacao DESC";
-        List<Conta> contaList = new ArrayList();
+        List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, ContaTipo.RECEITA.name());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Conta c = new Conta();
-                c.setId(rs.getInt("contas.id"));
-                c.setTitulo(rs.getString("contas.titulo"));
-                c.setDescricao(rs.getString("contas.descricao"));
-
-                Categoria cat = new Categoria();
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-
-                c.setCategoria(cat);
-                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-                c.setValor(rs.getLong("contas.valor"));
-                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
-                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
-                c.setQuitado(rs.getBoolean("contas.quitado"));
-
-                contaList.add(c);
+                contas.add(popularLista(rs));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return contaList;
+        return contas;
     }
 
     public List<Conta> findAllDespesas() {
@@ -362,34 +231,110 @@ public class ContaDAO {
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
                 + "WHERE contas.tipo=? "
                 + "ORDER BY contas.dt_vencimento DESC";
-        List<Conta> contaList = new ArrayList();
+        List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, ContaTipo.DESPESA.name());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Conta c = new Conta();
-                c.setId(rs.getInt("contas.id"));
-                c.setTitulo(rs.getString("contas.titulo"));
-                c.setDescricao(rs.getString("contas.descricao"));
-
-                Categoria cat = new Categoria();
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-
-                c.setCategoria(cat);
-                c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-                c.setValor(rs.getLong("contas.valor"));
-                c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
-                c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
-                c.setQuitado(rs.getBoolean("contas.quitado"));
-
-                contaList.add(c);
+                contas.add(popularLista(rs));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return contaList;
+        return contas;
+    }
+
+    public List<Conta> findDespesasFuturas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Conta> findReceitasFuturas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Conta> findReceitasVencidas() {
+        String sql = "SELECT * FROM contas LEFT JOIN categorias "
+                + "ON contas.cat_id=categorias.id WHERE contas.tipo = 'RECEITA' and dt_vencimento<curdate() "
+                + "ORDER BY contas.dt_vencimento DESC";
+        List<Conta> contas = new ArrayList();
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                contas.add(popularLista(rs));
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return contas;
+    }
+
+    public List<Conta> findReceitasQuitadas() {
+        String sql = "SELECT * FROM contas LEFT JOIN categorias "
+                + "ON contas.cat_id=categorias.id WHERE contas.tipo='RECEITA' and quitado=true "
+                + "ORDER BY contas.dt_criacao DESC";
+        List<Conta> contas = new ArrayList();
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                contas.add(popularLista(rs));
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return contas;
+    }
+
+    public List<Conta> findReceitasPendentes() {
+        String sql = "SELECT * FROM contas LEFT JOIN categorias "
+                + "ON contas.cat_id=categorias.id WHERE contas.tipo='RECEITA' and quitado=false "
+                + "ORDER BY contas.dt_criacao DESC";
+        List<Conta> contas = new ArrayList();
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                contas.add(popularLista(rs));
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return contas;
+    }
+
+    /**
+     * Cria uma Conta e popula ela com o ResultSet passado como parametro
+     *
+     * @param rs
+     * @return Conta
+     * @throws SQLException
+     */
+    private Conta popularLista(ResultSet rs) throws SQLException {
+        Conta c = new Conta();
+        Categoria cat = new Categoria();
+        c.setId(rs.getInt("contas.id"));
+        c.setTitulo(rs.getString("contas.titulo"));
+        c.setDescricao(rs.getString("contas.descricao"));
+
+        cat.setId(rs.getInt("categorias.id"));
+        cat.setTitulo(rs.getString("categorias.titulo"));
+        cat.setDescricao(rs.getString("categorias.descricao"));
+        c.setCategoria(cat);
+
+        c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
+        c.setValor(rs.getLong("contas.valor"));
+        c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
+        c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
+        c.setQuitado(rs.getBoolean("contas.quitado"));
+
+        return c;
     }
 }

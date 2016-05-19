@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -61,9 +60,9 @@
                         <Label alignment="TOP_RIGHT" minWidth="100.0" text="Situaçao:" textAlignment="RIGHT" GridPane.rowIndex="7" />
                         <ButtonBar buttonMinWidth="90.0" buttonOrder="" nodeOrientation="RIGHT_TO_LEFT" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                             <buttons>
-                                <Button mnemonicParsing="false" onAction="#actionNova" text="Nova" />
-                                <Button mnemonicParsing="false" onAction="#actionEditar" text="Editar" />
-                                <Button mnemonicParsing="false" onAction="#actionExcluir" text="Excluir" />
+                                <Button mnemonicParsing="false" onAction="#actionNovaConta" text="Nova" />
+                                <Button mnemonicParsing="false" onAction="#actionEditarConta" text="Editar" />
+                                <Button mnemonicParsing="false" onAction="#actionExcluirConta" text="Excluir" />
                             </buttons>
                             <GridPane.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -93,40 +92,53 @@
             <children>
                 <MenuBar>
                     <menus>
-                        <Menu mnemonicParsing="false" text="%gui.principal.menuarquivo">
+                        <Menu mnemonicParsing="false" text="Arquivo">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#actionNovaReceita" text="%gui.principal.menuarquivo.novareceita" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionNovaDespesa" text="%gui.principal.menuarquivo.novadespesa" />
-                                <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionNovaCategoria" text="%gui.principal.menuarquivo.novacategoria" />
-                                <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionSair" text="%gui.principal.menuarquivo.sair" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionSair" text="Sair" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="%gui.principal.editar">
+                        <Menu mnemonicParsing="false" text="Conta">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="%gui.principal.editar" />
-                                <MenuItem mnemonicParsing="false" text="%gui.principal.editar" />
-                                <MenuItem mnemonicParsing="false" text="%gui.principal.editar" />
-                                <MenuItem mnemonicParsing="false" text="%gui.principal.editar" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionNovaConta" text="Nova" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionEditarConta" text="Editar" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionExcluirConta" text="Excluir" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="%gui.principal.menuvisualizar">
+                        <Menu mnemonicParsing="false" text="Categoria">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerTodas" text="%gui.principal.menuvisualizar.todas" />
-                                <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerReceitas" text="%gui.principal.menuvisualizar.receitas" />
-                                <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesas" text="%gui.principal.menuvisualizar.despesas" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasQuitadas" text="%gui.principal.menuvisualizar.quitadas" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasPendentes" text="%gui.principal.menuvisualizar.pendentes" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasVencidas" text="%gui.principal.menuvisualizar.vencidas" />
-                                <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasPendentesVencidas" text="%gui.principal.menuvisualizar.pendentesvencidas" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionNovaCategoria" text="Nova Categoria" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionEditarCategoria" text="Editar Categoria" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionExcluirCategoria" text="Excluir Categoria" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="%gui.principal.menuajuda">
+                        <Menu mnemonicParsing="false" text="Visualizar">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#actionSobre" text="%gui.principal.menuajuda.sobre" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionVerTodas" text="Visualizar Tudo" />
+                                <Menu mnemonicParsing="false" text="Receitas">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerReceitas" text="Todas" />
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerReceitasPagas" text="Pagas" />
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerReceitasPendentes" text="Pendentes" />
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerReceitasVencidas" text="Vencidas" />
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerReceitasFuturas" text="Futuras" />
+                                    </items>
+                                </Menu>
+                                <Menu mnemonicParsing="false" text="Despesas">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerDespesas" text="Todas" />
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasQuitadas" text="Pagas" />
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasPendentes" text="Pendentes" />
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasVencidas" text="Vencidas" />
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasFuturas" text="Futuras" />
+                                        <MenuItem mnemonicParsing="false" onAction="#actionVerDespesasPendentesVencidas" text="Pendentes Vencidas" />
+                                    </items>
+                                </Menu>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Ajuda">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#actionDocumentacao" text="Documentação" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionSobre" text="Sobre" />
                             </items>
                         </Menu>
                     </menus>
@@ -134,58 +146,58 @@
             </children>
         </VBox>
     </top>
-   <bottom>
+    <bottom>
         <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER_RIGHT" text="Total de Despesas:">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Label>
-            <Label fx:id="lbDespesas" prefWidth="210.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Label>
-            <Label alignment="CENTER_RIGHT" text="Total de Receitas:">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Label>
-            <Label fx:id="lbReceitas" prefWidth="210.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Label>
-            <Label alignment="CENTER_RIGHT" text="Saldo Atual:">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Label>
-            <Label fx:id="lbSaldo" prefWidth="210.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Label>
-         </children>
-      </HBox>
-   </bottom>
+            <children>
+                <Label alignment="CENTER_RIGHT" text="Total de Despesas:">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </Label>
+                <Label fx:id="lbDespesas" prefWidth="210.0">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </Label>
+                <Label alignment="CENTER_RIGHT" text="Total de Receitas:">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </Label>
+                <Label fx:id="lbReceitas" prefWidth="210.0">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </Label>
+                <Label alignment="CENTER_RIGHT" text="Saldo Atual:">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </Label>
+                <Label fx:id="lbSaldo" prefWidth="210.0">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </Label>
+            </children>
+        </HBox>
+    </bottom>
 </BorderPane>

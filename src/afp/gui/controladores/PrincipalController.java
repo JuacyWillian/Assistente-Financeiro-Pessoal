@@ -33,6 +33,9 @@ public class PrincipalController implements Initializable {
     private DateTimeFormatter dateFormat;
     private NumberFormat moedaFormat;
     private Conta contaDetalhada;
+    long totalDeDespesas = 0;
+    long totalDeReceitas = 0;
+    long saldoTotal = 0;
 
     @FXML
     private BorderPane myPane;
@@ -78,6 +81,8 @@ public class PrincipalController implements Initializable {
         moedaFormat = NumberFormat.getCurrencyInstance(bundle.getLocale());
 
         popularTabela(new ContaDAO().findAll());
+        calcularValores();
+
     }
 
     @FXML
@@ -89,27 +94,49 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    private void popularDetalhes(Conta c) {
-        lbTitulo.setText(c.getTitulo());
-        lbDescricao.setText(c.getDescricao());
-        lbData.setText(c.getDtCriacao().toString());
-        lbCategoria.setText(c.getCategoria().getTitulo());
-        lbTipo.setText(c.getTipo().name());
-        lbValor.setText("" + moedaFormat.format(c.getValor()));
-        lbVencimento.setText(c.getDtCriacao().toString());
-        lbSituacao.setText(c.isQuitado() ? "quitado" : "pendente");
+    /**
+     * finaliza o aplicativo
+     *
+     * @param event
+     */
+    @FXML
+    private void actionSair(ActionEvent event) {
+        System.exit(0);
     }
 
-    private void popularTabela(List<Conta> lista) {
-        lista.stream().forEach((c) -> {
-            tbcData.setCellValueFactory(new PropertyValueFactory<>("dtCriacao"));
-            tbcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-            tbcValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
-            tbcCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-            tbcVencimento.setCellValueFactory(new PropertyValueFactory<>("dtVencimento"));
-        });
-        tbvContas.getItems().clear();
-        tbvContas.getItems().addAll(lista);
+    @FXML
+    private void actionNovaConta(ActionEvent event) {
+        novaConta();
+    }
+
+    @FXML
+    private void actionEditarConta(ActionEvent event) {
+        editarConta(contaDetalhada);
+    }
+
+    @FXML
+    private void actionExcluirConta(ActionEvent event) {
+        excluirConta(contaDetalhada);
+    }
+
+    @FXML
+    private void actionNovaCategoria(ActionEvent event) {
+        Dialog dialog = DialogFactor.getCategoriaDialog(null, null);
+        Optional<Categoria> result = (Optional<Categoria>) dialog.showAndWait();
+
+        if (result.isPresent()) {
+            new CategoriaDAO().insert(result.get());
+        }
+    }
+
+    @FXML
+    private void actionEditarCategoria(ActionEvent event) {
+//        todo
+    }
+
+    @FXML
+    private void actionExcluirCategoria(ActionEvent event) {
+//        todo
     }
 
     @FXML
@@ -120,6 +147,26 @@ public class PrincipalController implements Initializable {
     @FXML
     private void actionVerReceitas(ActionEvent event) {
         popularTabela(new ContaDAO().findAllReceitas());
+    }
+
+    @FXML
+    private void actionVerReceitasPagas(ActionEvent event) {
+        popularTabela(new ContaDAO().findReceitasQuitadas());
+    }
+
+    @FXML
+    private void actionVerReceitasPendentes(ActionEvent event) {
+        popularTabela(new ContaDAO().findReceitasPendentes());
+    }
+
+    @FXML
+    private void actionVerReceitasVencidas(ActionEvent event) {
+        popularTabela(new ContaDAO().findReceitasVencidas());
+    }
+
+    @FXML
+    private void actionVerReceitasFuturas(ActionEvent event) {
+        popularTabela(new ContaDAO().findReceitasFuturas());
     }
 
     @FXML
@@ -148,25 +195,16 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
-    private void actionNovaReceita(ActionEvent event) {
-        novaConta(ContaTipo.RECEITA, bundle);
+    private void actionVerDespesasFuturas(ActionEvent event) {
+        popularTabela(new ContaDAO().findDespesasFuturas());
     }
 
-    @FXML
-    private void actionNovaDespesa(ActionEvent event) {
-        novaConta(ContaTipo.DESPESA, bundle);
-    }
-
-    @FXML
-    private void actionNovaCategoria(ActionEvent event) {
-        Dialog dialog = DialogFactor.getCategoriaDialog(null, null);
-        Optional<Categoria> result = (Optional<Categoria>) dialog.showAndWait();
-
-        if (result.isPresent()) {
-            new CategoriaDAO().insert(result.get());
-        }
-    }
-
+    /**
+     * Abre o dialogo Sobre, que exibe informações do aplicativo, bem como
+     * website, desenvolvedores e licença.
+     *
+     * @param event
+     */
     @FXML
     private void actionSobre(ActionEvent event) {
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -179,44 +217,16 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
-    private void actionSair(ActionEvent event) {
-        System.exit(0);
+    private void actionDocumentacao(ActionEvent event) {
     }
 
-    @FXML
-    private void actionNova(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void actionEditar(ActionEvent event) {
-        Dialog dialog = DialogFactor.getContaDialog(contaDetalhada, contaDetalhada.getTipo(), bundle);
-        Optional<Conta> result = (Optional<Conta>) dialog.showAndWait();
-
-        if (result.isPresent()) {
-            Conta c = result.get();
-            new ContaDAO().update(c);
-        }
-        actionVerTodas(event);
-    }
-
-    @FXML
-    private void actionExcluir(ActionEvent event) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-//        alert.setTitle("Excluir Conta");
-        alert.setContentText("Você tem certeza que deseja excluir esta conta?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            new ContaDAO().delete(contaDetalhada);
-            actionVerTodas(event);
-        } else {
-
-        }
-    }
-
-    private void novaConta(ContaTipo tipo, ResourceBundle rb) {
-        Dialog dialog = DialogFactor.getContaDialog(null, tipo, rb);
+    /**
+     * Dialogo de Nova Conta
+     *
+     * @param tipo DESPESA ou RECEITA
+     */
+    private void novaConta() {
+        Dialog dialog = DialogFactor.getContaDialog(null);
         Optional<List<Conta>> result = (Optional<List<Conta>>) dialog.showAndWait();
 
         if (result.isPresent()) {
@@ -225,7 +235,120 @@ public class PrincipalController implements Initializable {
             list.stream().forEach((c) -> {
                 dao.insert(c);
             });
-            actionVerTodas(null);
         }
+        actionVerTodas(null);
+        calcularValores();
+    }
+
+    /**
+     * Exibe um dialogo para edição da conta.
+     *
+     * @param conta
+     */
+    private void editarConta(Conta conta) {
+        Dialog dialog = DialogFactor.getContaDialog(conta);
+        Optional<List<Conta>> result = (Optional<List<Conta>>) dialog.showAndWait();
+
+        if (result.isPresent()) {
+            List<Conta> contas = result.get();
+            contas.stream().forEach((c) -> {
+                new ContaDAO().update(c);
+            });
+        }
+        actionVerTodas(null);
+        calcularValores();
+    }
+
+    /**
+     * exclui a conta passada como paramero do banco de dados.
+     *
+     * @param conta
+     */
+    private void excluirConta(Conta conta) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setContentText("Você tem certeza que deseja excluir esta conta?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            new ContaDAO().delete(conta);
+        }
+        actionVerTodas(null);
+        calcularValores();
+    }
+
+    /**
+     * Popula o painel de detalhes com as informações da conta.
+     *
+     * @param c
+     */
+    private void popularDetalhes(Conta c) {
+        lbTitulo.setText(c.getTitulo());
+        lbDescricao.setText(c.getDescricao());
+        lbData.setText(c.getDtCriacao().toString());
+        lbCategoria.setText(c.getCategoria().getTitulo());
+        lbTipo.setText(c.getTipo().name());
+        lbValor.setText("" + moedaFormat.format(c.getValor()));
+        lbVencimento.setText(c.getDtCriacao().toString());
+        lbSituacao.setText(c.isQuitado() ? "pago" : "pendente");
+    }
+
+    /**
+     * Limpa as informações do painel de detalhes.
+     *
+     * @param c
+     */
+    private void limparDetalhes(Conta c) {
+        contaDetalhada = null;
+
+        lbTitulo.setText("");
+        lbDescricao.setText("");
+        lbData.setText("");
+        lbCategoria.setText("");
+        lbTipo.setText("");
+        lbValor.setText("");
+        lbVencimento.setText("");
+        lbSituacao.setText("");
+    }
+
+    /**
+     * Popula a tabela com as informações da lista
+     *
+     * @param lista
+     */
+    private void popularTabela(List<Conta> lista) {
+        lista.stream().forEach((c) -> {
+            tbcData.setCellValueFactory(new PropertyValueFactory<>("dtCriacao"));
+            tbcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+            tbcValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+            tbcCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+            tbcVencimento.setCellValueFactory(new PropertyValueFactory<>("dtVencimento"));
+        });
+        tbvContas.getItems().clear();
+        tbvContas.getItems().addAll(lista);
+    }
+
+    /**
+     * Calcula os valores de Despesas, Receitas e Saldos e apresenta para o
+     * usuário, não levando em consideração despesas ou receitas futuras.
+     */
+    private void calcularValores() {
+        List<Conta> list = new ContaDAO().findAll();
+        totalDeDespesas = 0;
+        totalDeReceitas = 0;
+        list.stream().forEach((c) -> {
+            if (c.getDtVencimento().getMonth().compareTo(LocalDate.now().getMonth()) <= 0) {
+
+                if (c.getTipo() == ContaTipo.DESPESA) {
+                    totalDeDespesas += c.getValor();
+                } else if (c.getTipo() == ContaTipo.RECEITA) {
+                    totalDeReceitas += c.getValor();
+                }
+
+            }
+        });
+
+        lbDespesas.setText("R$ " + moedaFormat.format(totalDeDespesas));
+        lbReceitas.setText("R$ " + moedaFormat.format(totalDeReceitas));
+        lbSaldo.setText("R$ " + moedaFormat.format(totalDeReceitas - totalDeDespesas));
     }
 }

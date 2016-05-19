@@ -61,24 +61,18 @@ public class CategoriaDAO {
 
     public List<Categoria> findAll() {
         String sql = "select * from categorias order by categorias.titulo asc";
-        List<Categoria> categoriaList = new ArrayList();
+        List<Categoria> categorias = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-
-                Categoria cat = new Categoria();
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-
-                categoriaList.add(cat);
+                categorias.add(popularCategoria(rs));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return categoriaList;
+        return categorias;
     }
 
     public Categoria findById(int id) {
@@ -89,11 +83,7 @@ public class CategoriaDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Categoria cat = new Categoria();
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-                return cat;
+                return popularCategoria(rs);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -110,14 +100,28 @@ public class CategoriaDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                cat.setId(rs.getInt("categorias.id"));
-                cat.setTitulo(rs.getString("categorias.titulo"));
-                cat.setDescricao(rs.getString("categorias.descricao"));
-                return cat;
+                return popularCategoria(rs);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Cria uma Categoria e popula ela com o ResultSet passado como parametro
+     *
+     * @param rs
+     * @return Categoria
+     * @throws SQLException
+     */
+    private Categoria popularCategoria(ResultSet rs) throws SQLException {
+        Categoria cat = new Categoria();
+
+        cat.setId(rs.getInt("categorias.id"));
+        cat.setTitulo(rs.getString("categorias.titulo"));
+        cat.setDescricao(rs.getString("categorias.descricao"));
+
+        return cat;
     }
 }

@@ -115,7 +115,7 @@ public class DialogFactor {
      * @param rb no caso de Internacionalização, pode ser null
      * @return Conta nova ou editada
      */
-    public static Dialog getContaDialog(Conta c, ContaTipo ct, ResourceBundle rb) {
+    public static Dialog getContaDialog(Conta c) {
 
         double column1size = 150.0;
         double column2size = 300.0;
@@ -198,17 +198,14 @@ public class DialogFactor {
         lbErro.setMinWidth(column1size + column2size);
         lbErro.setAlignment(Pos.CENTER);
 
-        if (ct != null) {
-            cbbTipo.setValue(ct);
-            cbbTipo.setDisable(true);
-        }
-
         if (c != null) {
             dialog.setTitle("Editar Conta");
 
             txTitulo.setText(c.getTitulo());
             txDescricao.setText(c.getDescricao());
             cbbCategoria.setValue(c.getCategoria());
+            cbbTipo.setValue(c.getTipo());
+            cbbTipo.setDisable(false);
             txValor.setText("" + c.getValor());
             dtData.setValue(c.getDtCriacao());
             dtVencimento.setValue(c.getDtVencimento());

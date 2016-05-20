@@ -7,7 +7,8 @@ import afp.util.ContaTipo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -18,94 +19,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class DialogFactor {
-
-    /**
-     *
-     * @param c no caso de edição de categoria, caso deseje criar uma nova este
-     * campo deve ser null
-     * @param rb no caso de Internacionalização
-     * @return Categoria editada caso o o parametro c seja diferente de null, ou
-     * uma nova caso ele seja null
-     */
-    public static Dialog getCategoriaDialog(Categoria c, ResourceBundle rb) {
-
-        String title;
-        double column1size = 100;
-        double column2size = 200;
-
-        Dialog<Categoria> dialog = new Dialog<>();
-
-        TextField txTitulo = new TextField();
-        txTitulo.setPrefWidth(column2size);
-
-        Label lbTitulo = new Label("Titulo*:");
-        lbTitulo.setMinWidth(column1size);
-        lbTitulo.setAlignment(Pos.TOP_RIGHT);
-
-        TextArea txDescricao = new TextArea();
-        txDescricao.setPrefSize(column2size, 150);
-
-        Label lbDescricao = new Label("Descrição:");
-        lbDescricao.setMinWidth(column1size);
-        lbDescricao.setAlignment(Pos.TOP_RIGHT);
-
-        Label lbErro = new Label();
-        lbErro.setMinWidth(column1size + column2size);
-        lbErro.setStyle("paint: red");
-
-        if (c != null) {
-            title = "Editar Categoria";
-            txTitulo.setText(c.getTitulo());
-            txDescricao.setText(c.getDescricao());
-        } else {
-            title = "Nova Categoria:";
-        }
-
-        GridPane grid = new GridPane();
-        grid.setVgap(5);
-        grid.setHgap(5);
-
-        grid.add(lbTitulo, 1, 1);
-        grid.add(txTitulo, 2, 1);
-        grid.add(lbDescricao, 1, 2);
-        grid.add(txDescricao, 2, 2);
-        grid.add(lbErro, 1, 3, 2, 1);
-
-        ButtonType btnOK = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-        ButtonType BtnCancel = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        dialog.getDialogPane().setContent(grid);
-        dialog.getDialogPane().getButtonTypes().add(btnOK);
-        dialog.getDialogPane().getButtonTypes().add(BtnCancel);
-
-        Button btn = (Button) dialog.getDialogPane().lookupButton(btnOK);
-        btn.addEventFilter(ActionEvent.ACTION, event -> {
-            if (txTitulo.getText().isEmpty()) {
-                lbErro.setText("Preencha todos os campos obrigatórios!");
-                event.consume();
-            }
-        });
-
-        dialog.setResultConverter((ButtonType b) -> {
-            if (c != null) {
-                c.setTitulo(txTitulo.getText());
-                c.setDescricao(txDescricao.getText(0, 140));
-                if (b == btnOK) {
-                    return c;
-                }
-            } else if (b == btnOK) {
-                return new Categoria(txTitulo.getText(), txDescricao.getText());
-            }
-            return null;
-        });
-
-        return dialog;
-    }
 
     /**
      *
@@ -272,45 +191,232 @@ public class DialogFactor {
         dialog.setResultConverter((ButtonType b) -> {
 
             List<Conta> list = new ArrayList<>();
-
             int parcelas = Integer.parseInt(txParcelas.getText());
-            if (c != null) {
-                c.setTitulo(txTitulo.getText());
-                c.setDescricao(txDescricao.getText());
-                c.setTipo(cbbTipo.getValue());
-                c.setCategoria(cbbCategoria.getValue());
-                c.setValor(Long.parseLong(txValor.getText()));
-                c.setDtCriacao(dtData.getValue());
-                c.setDtVencimento(dtVencimento.getValue());
-                c.setQuitado(chQuitado.isSelected());
 
-                if (b == btnOK) {
+            if (b == btnOK) {
+                if (c != null) {
+                    c.setTitulo(txTitulo.getText());
+                    c.setDescricao(txDescricao.getText());
+                    c.setTipo(cbbTipo.getValue());
+                    c.setCategoria(cbbCategoria.getValue());
+                    c.setValor(Long.parseLong(txValor.getText()));
+                    c.setDtCriacao(dtData.getValue());
+                    c.setDtVencimento(dtVencimento.getValue());
+                    c.setQuitado(chQuitado.isSelected());
+
                     list.add(c);
-                }
-            } else {
-                for (int i = 0; i < parcelas; i++) {
+                } else {
+                    for (int i = 0; i < parcelas; i++) {
 
-                    Conta conta = new Conta();
-                    conta.setTitulo(txTitulo.getText() + " (" + (i + 1) + "/" + parcelas + ")");
-                    conta.setDescricao(txDescricao.getText());
-                    conta.setTipo(cbbTipo.getValue());
-                    conta.setCategoria(cbbCategoria.getValue());
-                    if (parcelas > 1) {
-                        conta.setValor((Long.parseLong(txValor.getText()) / parcelas));
-                    } else {
-                        conta.setValor(Long.parseLong(txValor.getText()));
-                    }
-                    conta.setDtCriacao(dtData.getValue());
-                    conta.setDtVencimento(dtVencimento.getValue().plusMonths(i));
-                    conta.setQuitado(chQuitado.isSelected());
+                        Conta conta = new Conta();
+                        conta.setTitulo(txTitulo.getText() + " (" + (i + 1) + "/" + parcelas + ")");
+                        conta.setDescricao(txDescricao.getText());
+                        conta.setTipo(cbbTipo.getValue());
+                        conta.setCategoria(cbbCategoria.getValue());
+                        if (parcelas > 1) {
+                            conta.setValor((Long.parseLong(txValor.getText()) / parcelas));
+                        } else {
+                            conta.setValor(Long.parseLong(txValor.getText()));
+                        }
+                        conta.setDtCriacao(dtData.getValue());
+                        conta.setDtVencimento(dtVencimento.getValue().plusMonths(i));
+                        conta.setQuitado(chQuitado.isSelected());
 
-                    if (b == btnOK) {
-                        list.add(conta);
+                        if (b == btnOK) {
+                            list.add(conta);
+                        } else if (b == btnCancelar) {
+                            dialog.close();
+                        }
                     }
                 }
+            } else if (b == btnCancelar) {
+                dialog.setResult(list);
+                dialog.close();
             }
+
             return list;
         });
+        return dialog;
+    }
+
+    /**
+     * @return Retorna o Dialogo de Gerenciamento de Categorias
+     */
+    public static Dialog getGerenciadorDeCategoriasDialog() {
+        Dialog dialog = new Dialog();
+        String erro_message = "O titulo deve ser preenchido.";
+
+        List<Categoria> categorias = new CategoriaDAO().findAll();
+        ObservableList<Categoria> data = FXCollections.observableArrayList(categorias);
+
+        ListView view = new ListView(data);
+
+        Label lbTitulo = new Label("Titulo:");
+        Label lbDescricao = new Label("Descrição:");
+        Label lbErro = new Label("");
+        lbErro.setAlignment(Pos.CENTER);
+        lbErro.setPrefWidth(400);
+
+        TextField txTitulo = new TextField();
+        txTitulo.setPrefWidth(400);
+        txTitulo.setDisable(true);
+
+        TextArea txDescricao = new TextArea();
+        txDescricao.setPrefWidth(400);
+        txDescricao.setDisable(true);
+
+        view.setOnMouseClicked((event) -> {
+            Categoria cat = (Categoria) view.getSelectionModel().getSelectedItem();
+            txTitulo.setText(cat.getTitulo());
+            txDescricao.setText(cat.getDescricao());
+
+            txTitulo.setDisable(true);
+            txDescricao.setDisable(true);
+        });
+
+        Button editar = new Button("Editar");
+        Button excluir = new Button("Excluir");
+        Button nova = new Button("Nova");
+
+        excluir.setOnAction((e) -> {
+
+            if ("Excluir".equals(excluir.getText())) {
+
+                Categoria cat = (Categoria) view.getSelectionModel().getSelectedItem();
+                if (cat != null) {
+                    new CategoriaDAO().delete(cat);
+
+                    view.getItems().clear();
+                    view.getItems().addAll(new CategoriaDAO().findAll());
+                    view.getSelectionModel().select(null);
+                }
+
+            } else if ("Cancelar".equals(excluir.getText())) {
+
+                txTitulo.setText("");
+                txDescricao.setText("");
+
+                txTitulo.setDisable(true);
+                txDescricao.setDisable(true);
+
+                nova.setText("Nova");
+                excluir.setText("Excluir");
+                editar.setText("Editar");
+
+                nova.setDisable(false);
+                editar.setDisable(false);
+                excluir.setDisable(false);
+
+                view.getItems().clear();
+                view.getItems().addAll(new CategoriaDAO().findAll());
+                view.getSelectionModel().select(null);
+
+            }
+        });
+
+        editar.setOnAction((e) -> {
+            if ("Salvar".equals(editar.getText())) {
+                if (!txTitulo.getText().isEmpty()) {
+
+                    Categoria cat = (Categoria) view.getSelectionModel().getSelectedItem();
+                    cat.setTitulo(txTitulo.getText());
+                    cat.setDescricao(txDescricao.getText());
+
+                    new CategoriaDAO().update(cat);
+
+                    txTitulo.setDisable(true);
+                    txDescricao.setDisable(true);
+
+                    editar.setText("Editar");
+                    excluir.setText("Excluir");
+                    nova.setDisable(false);
+
+                    view.getItems().clear();
+                    view.getItems().addAll(new CategoriaDAO().findAll());
+                    view.getSelectionModel().select(null);
+
+                } else {
+                    lbErro.setText(erro_message);
+                }
+
+            } else if ("Editar".equals(editar.getText())) {
+
+                txTitulo.setDisable(false);
+                txDescricao.setDisable(false);
+
+                editar.setText("Salvar");
+                excluir.setText("Cancelar");
+
+                nova.setDisable(true);
+
+            }
+
+        });
+        nova.setOnAction((e) -> {
+            if ("Salvar".equals(nova.getText())) {
+
+                if (!txTitulo.getText().isEmpty()) {
+                    Categoria cat = new Categoria();
+                    cat.setTitulo(txTitulo.getText());
+                    cat.setDescricao(txDescricao.getText());
+
+                    new CategoriaDAO().insert(cat);
+
+                    view.getItems().clear();
+                    view.getItems().addAll(new CategoriaDAO().findAll());
+                    view.getSelectionModel().select(null);
+
+                    excluir.setText("Excluir");
+                    nova.setText("Nova");
+
+                    editar.setDisable(false);
+                    excluir.setDisable(false);
+                    nova.setDisable(false);
+
+                    txTitulo.setDisable(true);
+                    txDescricao.setDisable(true);
+                } else {
+                    lbErro.setText(erro_message);
+                }
+
+            } else if ("Nova".equals(nova.getText())) {
+
+                txTitulo.setDisable(false);
+                txTitulo.setText("");
+
+                txDescricao.setDisable(false);
+                txDescricao.setText("");
+
+                editar.setDisable(true);
+                excluir.setText("Cancelar");
+                nova.setText("Salvar");
+
+                view.getItems().clear();
+                view.getItems().addAll(new CategoriaDAO().findAll());
+                view.getSelectionModel().select(null);
+            }
+
+        });
+
+        ButtonBar bBar = new ButtonBar();
+        bBar.getButtons().addAll(excluir, editar, nova);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        grid.add(view, 0, 0, 1, 5);
+        grid.add(lbTitulo, 1, 0);
+        grid.add(txTitulo, 1, 1);
+        grid.add(lbDescricao, 1, 2);
+        grid.add(txDescricao, 1, 3);
+        grid.add(lbErro, 1, 4);
+        grid.add(bBar, 1, 5);
+
+        ButtonType btnCancelar = new ButtonType("Fechar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().add(btnCancelar);
+
         return dialog;
     }
 

@@ -34,8 +34,8 @@ public class CategoriaDAO {
     }
 
     public void update(Categoria c) {
-        String sql = "UPDATE categorias SET (titulo=?, descricao=?) "
-                + "WHERE categorias.id=?;";
+        String sql = "UPDATE categorias SET titulo=?, descricao=? "
+                + "WHERE id=?";
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, c.getTitulo());
@@ -60,7 +60,7 @@ public class CategoriaDAO {
     }
 
     public List<Categoria> findAll() {
-        String sql = "select * from categorias order by categorias.titulo asc";
+        String sql = "SELECT * FROM categorias ORDER BY titulo ASC";
         List<Categoria> categorias = new ArrayList();
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
@@ -76,7 +76,7 @@ public class CategoriaDAO {
     }
 
     public Categoria findById(int id) {
-        String sql = "select * from categorias where contas.id=?";
+        String sql = "SELECT * FROM categorias WHERE contas.id=?";
         try (Connection con = fabrica.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, id);

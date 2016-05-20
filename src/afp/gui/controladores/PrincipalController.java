@@ -3,7 +3,6 @@ package afp.gui.controladores;
 import afp.gui.view.DialogFactor;
 import afp.modelo.Categoria;
 import afp.modelo.Conta;
-import afp.modelo.dao.CategoriaDAO;
 import afp.modelo.dao.ContaDAO;
 import afp.util.ContaTipo;
 import java.net.URL;
@@ -18,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -73,6 +73,10 @@ public class PrincipalController implements Initializable {
     private Label lbReceitas;
     @FXML
     private Label lbSaldo;
+    @FXML
+    private Button btnEditar;
+    @FXML
+    private Button btnExcluir;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -83,6 +87,9 @@ public class PrincipalController implements Initializable {
         popularTabela(new ContaDAO().findAll());
         calcularValores();
 
+        btnEditar.setDisable(true);
+        btnExcluir.setDisable(true);
+
     }
 
     @FXML
@@ -91,6 +98,11 @@ public class PrincipalController implements Initializable {
 
         if (contaDetalhada != null) {
             popularDetalhes(contaDetalhada);
+            btnEditar.setDisable(false);
+            btnExcluir.setDisable(false);
+        } else {
+            btnEditar.setDisable(true);
+            btnExcluir.setDisable(true);
         }
     }
 
@@ -117,26 +129,6 @@ public class PrincipalController implements Initializable {
     @FXML
     private void actionExcluirConta(ActionEvent event) {
         excluirConta(contaDetalhada);
-    }
-
-    @FXML
-    private void actionNovaCategoria(ActionEvent event) {
-        Dialog dialog = DialogFactor.getCategoriaDialog(null, null);
-        Optional<Categoria> result = (Optional<Categoria>) dialog.showAndWait();
-
-        if (result.isPresent()) {
-            new CategoriaDAO().insert(result.get());
-        }
-    }
-
-    @FXML
-    private void actionEditarCategoria(ActionEvent event) {
-//        todo
-    }
-
-    @FXML
-    private void actionExcluirCategoria(ActionEvent event) {
-//        todo
     }
 
     @FXML
@@ -229,7 +221,8 @@ public class PrincipalController implements Initializable {
         Dialog dialog = DialogFactor.getContaDialog(null);
         Optional<List<Conta>> result = (Optional<List<Conta>>) dialog.showAndWait();
 
-        if (result.isPresent()) {
+        if (!result.isPresent()) {
+        } else {
             List<Conta> list = result.get();
             ContaDAO dao = new ContaDAO();
             list.stream().forEach((c) -> {
@@ -350,5 +343,11 @@ public class PrincipalController implements Initializable {
         lbDespesas.setText("R$ " + moedaFormat.format(totalDeDespesas));
         lbReceitas.setText("R$ " + moedaFormat.format(totalDeReceitas));
         lbSaldo.setText("R$ " + moedaFormat.format(totalDeReceitas - totalDeDespesas));
+    }
+
+    @FXML
+    private void actionGerenciarCategorias(ActionEvent event) {
+        Dialog dialog = DialogFactor.getGerenciadorDeCategoriasDialog();
+        dialog.showAndWait();
     }
 }

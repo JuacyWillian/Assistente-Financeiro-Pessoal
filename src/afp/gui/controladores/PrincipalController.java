@@ -199,17 +199,8 @@ public class PrincipalController implements Initializable {
      */
     @FXML
     private void actionSobre(ActionEvent event) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Assistente Financeiro Pessoal");
-        alert.setHeaderText("Information Alert");
-        String s = "This is an example of JavaFX 8 Dialogs... ";
-        alert.setContentText(s);
-        alert.show();
-//        todo sobre
-    }
-
-    @FXML
-    private void actionDocumentacao(ActionEvent event) {
+        Dialog dialog = DialogFactor.getAboutDialog();
+        dialog.showAndWait();
     }
 
     /**

@@ -434,6 +434,12 @@ public class DialogFactor {
         return dialog;
     }
 
+    public static Dialog getAboutDialog() {
+        Dialog dialog = new Dialog();
+
+        return dialog;
+    }
+
     private DialogFactor() {
     }
 }

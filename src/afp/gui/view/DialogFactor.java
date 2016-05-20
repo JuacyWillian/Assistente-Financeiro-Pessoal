@@ -265,18 +265,30 @@ public class DialogFactor {
         txDescricao.setPrefWidth(400);
         txDescricao.setDisable(true);
 
+        Button editar = new Button("Editar");
+        editar.setDisable(true);
+
+        Button excluir = new Button("Excluir");
+        excluir.setDisable(true);
+
+        Button nova = new Button("Nova");
+
         view.setOnMouseClicked((event) -> {
             Categoria cat = (Categoria) view.getSelectionModel().getSelectedItem();
-            txTitulo.setText(cat.getTitulo());
-            txDescricao.setText(cat.getDescricao());
+            if (cat != null) {
+                txTitulo.setText(cat.getTitulo());
+                txDescricao.setText(cat.getDescricao());
 
-            txTitulo.setDisable(true);
-            txDescricao.setDisable(true);
+                txTitulo.setDisable(true);
+                txDescricao.setDisable(true);
+
+                editar.setDisable(false);
+                excluir.setDisable(false);
+            } else {
+                editar.setDisable(true);
+                excluir.setDisable(true);
+            }
         });
-
-        Button editar = new Button("Editar");
-        Button excluir = new Button("Excluir");
-        Button nova = new Button("Nova");
 
         excluir.setOnAction((e) -> {
 
@@ -304,8 +316,8 @@ public class DialogFactor {
                 editar.setText("Editar");
 
                 nova.setDisable(false);
-                editar.setDisable(false);
-                excluir.setDisable(false);
+                editar.setDisable(true);
+                excluir.setDisable(true);
 
                 view.getItems().clear();
                 view.getItems().addAll(new CategoriaDAO().findAll());
@@ -348,6 +360,7 @@ public class DialogFactor {
                 excluir.setText("Cancelar");
 
                 nova.setDisable(true);
+                excluir.setDisable(true);
 
             }
 
@@ -388,6 +401,7 @@ public class DialogFactor {
                 txDescricao.setText("");
 
                 editar.setDisable(true);
+                excluir.setDisable(false);
                 excluir.setText("Cancelar");
                 nova.setText("Salvar");
 

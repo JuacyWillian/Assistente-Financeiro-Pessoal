@@ -8,16 +8,16 @@ USE assistentefinanceiropessoal;
 -- create tables
 CREATE TABLE IF NOT EXISTS categorias(
     id INT AUTO_INCREMENT,
-    titulo VARCHAR(16) NOT NULL UNIQUE,
-    descricao VARCHAR(140),
+    titulo VARCHAR(100) NOT NULL UNIQUE,
+    descricao VARCHAR(300),
     PRIMARY KEY(id)
 );
 
 
 CREATE TABLE IF NOT EXISTS contas(
     id INT AUTO_INCREMENT,
-    titulo VARCHAR(25) NOT NULL,
-    descricao VARCHAR(140),
+    titulo VARCHAR(100) NOT NULL,
+    descricao VARCHAR(300),
     cat_id INT NOT NULL,
     tipo VARCHAR(7) NOT NULL,
     valor LONG NOT NULL,

@@ -436,6 +436,12 @@ public class DialogFactor {
 
     public static Dialog getAboutDialog() {
         Dialog dialog = new Dialog();
+        
+        GridPane grid = new GridPane();
+        
+        ButtonType btnCancelar = new ButtonType("Fechar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().add(btnCancelar);
 
         return dialog;
     }

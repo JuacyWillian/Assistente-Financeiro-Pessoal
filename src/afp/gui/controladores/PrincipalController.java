@@ -123,12 +123,18 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionEditarConta(ActionEvent event) {
-        editarConta(contaDetalhada);
+        if (contaDetalhada!=null){
+            editarConta(contaDetalhada);
+            limparDetalhes();
+        }
     }
 
     @FXML
     private void actionExcluirConta(ActionEvent event) {
-        excluirConta(contaDetalhada);
+        if (contaDetalhada!=null){
+            excluirConta(contaDetalhada);
+            limparDetalhes();
+        }
     }
 
     @FXML
@@ -281,7 +287,7 @@ public class PrincipalController implements Initializable {
      *
      * @param c
      */
-    private void limparDetalhes(Conta c) {
+    private void limparDetalhes() {
         contaDetalhada = null;
 
         lbTitulo.setText("");

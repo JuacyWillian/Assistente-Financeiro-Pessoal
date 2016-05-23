@@ -90,6 +90,12 @@ public class PrincipalController implements Initializable {
 
         btnEditar.setDisable(true);
         btnExcluir.setDisable(true);
+
+        tbcData.setStyle("-fx-alignment: CENTER;");
+        tbcTitulo.setStyle("-fx-alignment: CENTER-LEFT;");
+        tbcValor.setStyle("-fx-alignment: CENTER-RIGHT;");
+        tbcCategoria.setStyle("-fx-alignment: CENTER;");
+        tbcVencimento.setStyle("-fx-alignment: CENTER;");
     }
 
     @FXML
@@ -197,6 +203,12 @@ public class PrincipalController implements Initializable {
         popularTabela(new ContaDAO().findDespesasFuturas());
     }
 
+    @FXML
+    private void actionGerenciarCategorias(ActionEvent event) {
+        Dialog dialog = DialogFactor.getGerenciadorDeCategoriasDialog();
+        dialog.showAndWait();
+    }
+
     /**
      * Abre o dialogo Sobre, que exibe informações do aplicativo, bem como
      * website, desenvolvedores e licença.
@@ -274,11 +286,11 @@ public class PrincipalController implements Initializable {
     private void popularDetalhes(Conta c) {
         lbTitulo.setText(c.getTitulo());
         lbDescricao.setText(c.getDescricao());
-        lbData.setText(c.getDtCriacao().toString());
+        lbData.setText(dateFormat.format(c.getDtCriacao()));
         lbCategoria.setText(c.getCategoria().getTitulo());
         lbTipo.setText(c.getTipo().name());
-        lbValor.setText("" + moedaFormat.format(c.getValor()));
-        lbVencimento.setText(c.getDtCriacao().toString());
+        lbValor.setText("RS " + moedaFormat.format(c.getValor()));
+        lbVencimento.setText(dateFormat.format(c.getDtVencimento()));
         lbSituacao.setText(c.isQuitado() ? "pago" : "pendente");
     }
 
@@ -391,11 +403,5 @@ public class PrincipalController implements Initializable {
         lbDespesas.setText("R$ " + moedaFormat.format(totalDeDespesas));
         lbReceitas.setText("R$ " + moedaFormat.format(totalDeReceitas));
         lbSaldo.setText("R$ " + moedaFormat.format(totalDeReceitas - totalDeDespesas));
-    }
-
-    @FXML
-    private void actionGerenciarCategorias(ActionEvent event) {
-        Dialog dialog = DialogFactor.getGerenciadorDeCategoriasDialog();
-        dialog.showAndWait();
     }
 }

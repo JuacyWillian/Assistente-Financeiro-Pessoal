@@ -246,11 +246,43 @@ public class ContaDAO {
     }
 
     public List<Conta> findDespesasFuturas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "select * from contas "
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
+                + "WHERE contas.tipo=? and dt_vencimento>curdate()"
+                + "ORDER BY contas.dt_vencimento DESC";
+        List<Conta> contas = new ArrayList();
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setString(1, ContaTipo.DESPESA.name());
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                contas.add(popularLista(rs));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return contas;
     }
 
     public List<Conta> findReceitasFuturas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "select * from contas "
+                + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
+                + "WHERE contas.tipo=? and dt_vencimento>curdate()"
+                + "ORDER BY contas.dt_vencimento DESC";
+        List<Conta> contas = new ArrayList();
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setString(1, ContaTipo.RECEITA.name());
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                contas.add(popularLista(rs));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return contas;
     }
 
     public List<Conta> findReceitasVencidas() {

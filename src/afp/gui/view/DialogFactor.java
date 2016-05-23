@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -22,9 +23,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 public class DialogFactor {
+
+    private static final String DEVELOPPERS = "Juacy Willian, Adolpho Santos, Rafael Oliveira";
+    private static final String VERSION = "0.0.01b";
+    private static final String LICENCA = "GNU General Public License v3";
 
     /**
      *
@@ -195,6 +202,7 @@ public class DialogFactor {
 
             if (b == btnOK) {
                 if (c != null) {
+
                     c.setTitulo(txTitulo.getText());
                     c.setDescricao(txDescricao.getText());
                     c.setTipo(cbbTipo.getValue());
@@ -203,13 +211,17 @@ public class DialogFactor {
                     c.setDtCriacao(dtData.getValue());
                     c.setDtVencimento(dtVencimento.getValue());
                     c.setQuitado(chQuitado.isSelected());
-
                     list.add(c);
+
                 } else {
                     for (int i = 0; i < parcelas; i++) {
 
                         Conta conta = new Conta();
-                        conta.setTitulo(txTitulo.getText() + " (" + (i + 1) + "/" + parcelas + ")");
+                        if (parcelas == 1) {
+                            conta.setTitulo(txTitulo.getText());
+                        } else {
+                            conta.setTitulo(txTitulo.getText() + " (" + (i + 1) + "/" + parcelas + ")");
+                        }
                         conta.setDescricao(txDescricao.getText());
                         conta.setTipo(cbbTipo.getValue());
                         conta.setCategoria(cbbCategoria.getValue());
@@ -434,14 +446,53 @@ public class DialogFactor {
         return dialog;
     }
 
+    /**
+     * @return Retorna o Dialogo sobre
+     */
     public static Dialog getAboutDialog() {
         Dialog dialog = new Dialog();
-        
+
+        ImageView imgv = new ImageView(new Image("res/logo.jpg"));
+
+        StringBuilder info = new StringBuilder();
+
+        String descricao = "O Assistente Financeiro Pessoal tem como principal objetivo "
+                + "ajudar o usuário a fazer um uso adequado do seu dinheiro, "
+                + "permitindo a satisfação de suas necessidades de acordo "
+                + "com as suas prioridades.";
+
+        Label lbDescricao = new Label(descricao);
+        lbDescricao.setStyle("-fx-text-alignment: JUSTIFY;");
+        lbDescricao.setPadding(new Insets(10));
+        lbDescricao.setPrefWidth(400);
+        lbDescricao.setWrapText(true);
+
+        Label lbVersao = new Label("Versão: \n" + VERSION);
+        lbVersao.setStyle("-fx-text-alignment: JUSTIFY;");
+        lbVersao.setPadding(new Insets(3));
+        lbVersao.setWrapText(true);
+
+        Label lbDesenvolvedores = new Label("Desenvolvedores: \n" + DEVELOPPERS);
+        lbDesenvolvedores.setStyle("-fx-text-alignment: JUSTIFY;");
+        lbDesenvolvedores.setPadding(new Insets(3));
+        lbDesenvolvedores.setWrapText(false);
+
+        Label lbLicensa = new Label("Licença: \n" + LICENCA);
+        lbLicensa.setStyle("-fx-text-alignment: JUSTIFY;");
+        lbLicensa.setPadding(new Insets(3));
+        lbLicensa.setWrapText(false);
+
         GridPane grid = new GridPane();
-        
-        ButtonType btnCancelar = new ButtonType("Fechar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        grid.add(imgv, 0, 0, 2, 1);
+        grid.add(lbDescricao, 0, 1, 2, 1);
+        grid.add(lbVersao, 0, 2, 2, 1);
+        grid.add(lbDesenvolvedores, 0, 3, 2, 1);
+        grid.add(lbLicensa, 0, 4, 2, 1);
+
+        ButtonType btnFechar = new ButtonType("Fechar", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().setContent(grid);
-        dialog.getDialogPane().getButtonTypes().add(btnCancelar);
+        dialog.getDialogPane().getButtonTypes().add(btnFechar);
+        dialog.setResizable(false);
 
         return dialog;
     }

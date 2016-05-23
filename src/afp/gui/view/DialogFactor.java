@@ -32,7 +32,7 @@ import javafx.scene.layout.GridPane;
 public class DialogFactor {
 
     private static final String DEVELOPPERS = "Juacy Willian, Adolpho Santos, Rafael Oliveira";
-    private static final String VERSION = "0.0.01b";
+    private static final String VERSION = "1.0b";
     private static final String LICENCA = "GNU General Public License v3";
 
     /**

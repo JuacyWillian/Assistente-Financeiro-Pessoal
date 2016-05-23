@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -81,7 +82,7 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bundle = rb;
-        dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy", bundle.getLocale());
+        dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy", bundle.getLocale());
         moedaFormat = NumberFormat.getCurrencyInstance(bundle.getLocale());
 
         popularTabela(new ContaDAO().findAll());
@@ -89,7 +90,6 @@ public class PrincipalController implements Initializable {
 
         btnEditar.setDisable(true);
         btnExcluir.setDisable(true);
-
     }
 
     @FXML
@@ -123,7 +123,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionEditarConta(ActionEvent event) {
-        if (contaDetalhada!=null){
+        if (contaDetalhada != null) {
             editarConta(contaDetalhada);
             limparDetalhes();
         }
@@ -131,7 +131,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void actionExcluirConta(ActionEvent event) {
-        if (contaDetalhada!=null){
+        if (contaDetalhada != null) {
             excluirConta(contaDetalhada);
             limparDetalhes();
         }
@@ -306,15 +306,66 @@ public class PrincipalController implements Initializable {
      * @param lista
      */
     private void popularTabela(List<Conta> lista) {
+
         lista.stream().forEach((c) -> {
             tbcData.setCellValueFactory(new PropertyValueFactory<>("dtCriacao"));
+            tbcData.setCellFactory(column -> {
+                return new TableCell<Conta, LocalDate>() {
+                    @Override
+                    protected void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                            setStyle("");
+                        } else {
+                            // Format date.
+                            setText(dateFormat.format(item));
+                        }
+                    }
+                };
+            });
+
             tbcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
             tbcValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+            tbcValor.setCellFactory(column -> {
+                return new TableCell<Conta, Long>() {
+                    @Override
+                    protected void updateItem(Long item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                            setStyle("");
+                        } else {
+                            // Format date.
+                            setText(moedaFormat.format(item));
+                        }
+                    }
+                };
+            });
             tbcCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
             tbcVencimento.setCellValueFactory(new PropertyValueFactory<>("dtVencimento"));
+            tbcVencimento.setCellFactory(column -> {
+                return new TableCell<Conta, LocalDate>() {
+                    @Override
+                    protected void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                            setStyle("");
+                        } else {
+                            // Format date.
+                            setText(dateFormat.format(item));
+                        }
+                    }
+                };
+            });
         });
         tbvContas.getItems().clear();
         tbvContas.getItems().addAll(lista);
+
     }
 
     /**

@@ -3,6 +3,7 @@ package afp.gui.controladores;
 import afp.gui.view.DialogFactor;
 import afp.modelo.Categoria;
 import afp.modelo.Conta;
+import afp.modelo.dao.CategoriaDAO;
 import afp.modelo.dao.ContaDAO;
 import afp.util.ContaTipo;
 import java.net.URL;
@@ -227,19 +228,29 @@ public class PrincipalController implements Initializable {
      * @param tipo DESPESA ou RECEITA
      */
     private void novaConta() {
-        Dialog dialog = DialogFactor.getContaDialog(null);
-        Optional<List<Conta>> result = (Optional<List<Conta>>) dialog.showAndWait();
+        if (!new CategoriaDAO().findAll().isEmpty()) {
+            Dialog dialog = DialogFactor.getContaDialog(null);
+            Optional<List<Conta>> result = (Optional<List<Conta>>) dialog.showAndWait();
 
-        if (!result.isPresent()) {
+            if (!result.isPresent()) {
+            } else {
+                List<Conta> list = result.get();
+                ContaDAO dao = new ContaDAO();
+                list.stream().forEach((c) -> {
+                    dao.insert(c);
+                });
+            }
+            actionVerTodas(null);
+            calcularValores();
         } else {
-            List<Conta> list = result.get();
-            ContaDAO dao = new ContaDAO();
-            list.stream().forEach((c) -> {
-                dao.insert(c);
-            });
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("Informação");
+            alert.setContentText("Antes de Criar uma Conta é preciso criar uma categoria.\n Você pode fazer isso clicando em 'Editar > Gerenciar Categorias'.");
+            alert.getDialogPane().setPrefSize(400, 200);
+
+            alert.showAndWait();
         }
-        actionVerTodas(null);
-        calcularValores();
     }
 
     /**

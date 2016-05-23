@@ -123,6 +123,7 @@ public class DialogFactor {
         Label lbErro = new Label();
         lbErro.setMinWidth(column1size + column2size);
         lbErro.setAlignment(Pos.CENTER);
+        lbErro.setStyle("-fx-text-fill: RED;");
 
         if (c != null) {
             dialog.setTitle("Editar Conta");
@@ -183,14 +184,27 @@ public class DialogFactor {
 ////        Validando os Campos do Dialog
         Button btn = (Button) dialog.getDialogPane().lookupButton(btnOK);
         btn.addEventFilter(ActionEvent.ACTION, (ActionEvent event) -> {
+
             if (dtData.getValue() == null
                     || txTitulo.getText().isEmpty()
                     || cbbTipo.getSelectionModel().getSelectedItem() == null
                     || cbbCategoria.getSelectionModel().getSelectedItem() == null
                     || dtVencimento.getValue() == null
                     || txValor.getText().isEmpty()) {
+
                 lbErro.setText("Preencha todos os campor obrigatórios!");
                 event.consume();
+
+            } else if (dtData.getValue().isAfter(dtVencimento.getValue())) {
+
+                lbErro.setText("A data da compra não pode ser depois da data de vencimento!");
+                event.consume();
+
+            } else if ((Long.parseLong(txValor.getText())) < 0) {
+
+                lbErro.setText("A conta não pode ter um valor negativo");
+                event.consume();
+
             }
         });
 

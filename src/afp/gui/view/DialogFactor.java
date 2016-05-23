@@ -3,6 +3,7 @@ package afp.gui.view;
 import afp.modelo.Categoria;
 import afp.modelo.Conta;
 import afp.modelo.dao.CategoriaDAO;
+import afp.modelo.dao.ContaDAO;
 import afp.util.ContaTipo;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -322,11 +324,26 @@ public class DialogFactor {
 
                 Categoria cat = (Categoria) view.getSelectionModel().getSelectedItem();
                 if (cat != null) {
-                    new CategoriaDAO().delete(cat);
+                    if (new ContaDAO().findByCategoria(cat) == null) {
 
-                    view.getItems().clear();
-                    view.getItems().addAll(new CategoriaDAO().findAll());
-                    view.getSelectionModel().select(null);
+                        new CategoriaDAO().delete(cat);
+
+                        view.getItems().clear();
+                        view.getItems().addAll(new CategoriaDAO().findAll());
+                        view.getSelectionModel().select(null);
+
+                    } else {
+
+                        e.consume();
+
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Information Dialog");
+                        alert.setHeaderText("Informação");
+                        alert.setContentText("Você não pode excluir esta categoria, pois tem contas associadas à ela!");
+                        alert.getDialogPane().setPrefSize(400, 200);
+
+                        alert.showAndWait();
+                    }
                 }
 
             } else if ("Cancelar".equals(excluir.getText())) {

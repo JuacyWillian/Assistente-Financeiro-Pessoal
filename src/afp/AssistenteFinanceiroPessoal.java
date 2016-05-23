@@ -2,7 +2,6 @@ package afp;
 
 import afp.gui.view.Navegagor;
 import afp.util.TelasEnum;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +24,6 @@ public class AssistenteFinanceiroPessoal extends Application {
     public void start(Stage stage) throws Exception {
 
         this.primaryStage = stage;
-        bundle = ResourceBundle.getBundle("afp/i18n/messages", Locale.getDefault());
         Navegagor.getInstance().setStage(primaryStage);
         setScene(TelasEnum.PRINCIPAL);
     }
@@ -33,8 +31,7 @@ public class AssistenteFinanceiroPessoal extends Application {
     public void setScene(TelasEnum screen) {
         try {
             Parent root = FXMLLoader.load(
-                    getClass().getClassLoader().getResource(screen.getPath()),
-                    bundle);
+                    getClass().getClassLoader().getResource(screen.getPath()));
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
 

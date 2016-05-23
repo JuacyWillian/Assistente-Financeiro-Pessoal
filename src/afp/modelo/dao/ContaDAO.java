@@ -112,8 +112,9 @@ public class ContaDAO {
     }
 
     public List<Conta> findByCategoria(Categoria cat) {
-        String sql = "SELECT * FROM contas WHERE cat_id=?; "
+        String sql = "SELECT * FROM contas "
                 + "LEFT JOIN categorias ON contas.cat_id = categorias.id "
+                + "WHERE cat_id=? "
                 + "ORDER BY contas.dt_criacao DESC";
         List<Conta> contas = new ArrayList();
         try (Connection con = fabrica.getConnection();

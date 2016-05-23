@@ -30,9 +30,9 @@
                         <TableColumn fx:id="tbcCategoria" prefWidth="130.0" text="Categoria" />
                         <TableColumn fx:id="tbcVencimento" prefWidth="100.0" text="Vencimento" />
                     </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
                 </TableView>
                 <GridPane hgap="5.0" minWidth="350.0" vgap="5.0">
                     <columnConstraints>

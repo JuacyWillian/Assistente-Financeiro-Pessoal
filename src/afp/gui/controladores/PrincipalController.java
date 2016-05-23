@@ -11,6 +11,7 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -31,7 +32,6 @@ import javafx.scene.layout.BorderPane;
 
 public class PrincipalController implements Initializable {
 
-    private ResourceBundle bundle;
     private DateTimeFormatter dateFormat;
     private NumberFormat moedaFormat;
     private Conta contaDetalhada;
@@ -82,9 +82,9 @@ public class PrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        bundle = rb;
-        dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy", bundle.getLocale());
-        moedaFormat = NumberFormat.getCurrencyInstance(bundle.getLocale());
+        Locale ptBR = new Locale("pt", "BR");
+        dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy", ptBR);
+        moedaFormat = NumberFormat.getCurrencyInstance(ptBR);
 
         popularTabela(new ContaDAO().findAll());
         calcularValores();

@@ -131,9 +131,9 @@
                                 </Menu>
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Ajuda">
+                        <Menu mnemonicParsing="false" text="Sobre">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#actionSobre" text="Sobre" />
+                                <MenuItem mnemonicParsing="false" onAction="#actionSobre" text="Assistente Financeiro Pessoal" />
                             </items>
                         </Menu>
                     </menus>

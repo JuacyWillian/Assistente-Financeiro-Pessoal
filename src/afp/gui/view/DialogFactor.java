@@ -324,7 +324,7 @@ public class DialogFactor {
 
                 Categoria cat = (Categoria) view.getSelectionModel().getSelectedItem();
                 if (cat != null) {
-                    if (new ContaDAO().findByCategoria(cat) == null) {
+                    if (new ContaDAO().findByCategoria(cat).size() <= 0) {
 
                         new CategoriaDAO().delete(cat);
 

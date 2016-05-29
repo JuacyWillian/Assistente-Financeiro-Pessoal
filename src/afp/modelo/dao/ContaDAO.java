@@ -30,7 +30,7 @@ public class ContaDAO {
             ps.setString(2, c.getDescricao());
             ps.setInt(3, c.getCategoria().getId());
             ps.setString(4, c.getTipo().name());
-            ps.setLong(5, c.getValor());
+            ps.setDouble(5, c.getValor());
             ps.setDate(6, Date.valueOf(c.getDtCriacao()));
             ps.setDate(7, Date.valueOf(c.getDtVencimento()));
             ps.setBoolean(8, c.isQuitado());
@@ -52,7 +52,7 @@ public class ContaDAO {
             ps.setString(2, c.getDescricao());
             ps.setInt(3, c.getCategoria().getId());
             ps.setString(4, c.getTipo().name());
-            ps.setLong(5, c.getValor());
+            ps.setDouble(5, c.getValor());
             ps.setDate(6, Date.valueOf(c.getDtCriacao()));
             ps.setDate(7, Date.valueOf(c.getDtVencimento()));
             ps.setBoolean(8, c.isQuitado());
@@ -363,7 +363,7 @@ public class ContaDAO {
         c.setCategoria(cat);
 
         c.setTipo(ContaTipo.valueOf(rs.getString("contas.tipo")));
-        c.setValor(rs.getLong("contas.valor"));
+        c.setValor(rs.getDouble("contas.valor"));
         c.setDtCriacao(rs.getDate("contas.dt_criacao").toLocalDate());
         c.setDtVencimento(rs.getDate("contas.dt_vencimento").toLocalDate());
         c.setQuitado(rs.getBoolean("contas.quitado"));

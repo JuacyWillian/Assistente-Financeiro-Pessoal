@@ -48,7 +48,7 @@ public class PrincipalController implements Initializable {
     @FXML
     private TableColumn<Conta, String> tbcTitulo;
     @FXML
-    private TableColumn<Conta, Long> tbcValor;
+    private TableColumn<Conta, Double> tbcValor;
     @FXML
     private TableColumn<Categoria, String> tbcCategoria;
     @FXML
@@ -352,9 +352,9 @@ public class PrincipalController implements Initializable {
             tbcTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
             tbcValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
             tbcValor.setCellFactory(column -> {
-                return new TableCell<Conta, Long>() {
+                return new TableCell<Conta, Double>() {
                     @Override
-                    protected void updateItem(Long item, boolean empty) {
+                    protected void updateItem(Double item, boolean empty) {
                         super.updateItem(item, empty);
 
                         if (item == null || empty) {
@@ -411,8 +411,8 @@ public class PrincipalController implements Initializable {
             }
         });
 
-        lbDespesas.setText("R$ " + moedaFormat.format(totalDeDespesas));
-        lbReceitas.setText("R$ " + moedaFormat.format(totalDeReceitas));
-        lbSaldo.setText("R$ " + moedaFormat.format(totalDeReceitas - totalDeDespesas));
+        lbDespesas.setText(moedaFormat.format(totalDeDespesas));
+        lbReceitas.setText(moedaFormat.format(totalDeReceitas));
+        lbSaldo.setText(moedaFormat.format(totalDeReceitas - totalDeDespesas));
     }
 }

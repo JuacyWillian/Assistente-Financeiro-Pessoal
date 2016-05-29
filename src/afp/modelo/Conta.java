@@ -17,7 +17,7 @@ public class Conta implements Serializable {
 
     private ContaTipo tipo;
 
-    private long valor;
+    private double valor;
 
     private LocalDate dtCriacao;
 
@@ -31,7 +31,7 @@ public class Conta implements Serializable {
     }
 
     public Conta(String titulo, String descricao, ContaTipo tipo, Categoria categoria,
-            long valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
+            double valor, LocalDate dtCriacao, LocalDate dtVencimento, boolean quitado) {
         setTitulo(titulo);
         setDescricao(descricao);
         setTipo(tipo);
@@ -74,11 +74,11 @@ public class Conta implements Serializable {
         this.tipo = tipo;
     }
 
-    public long getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(long valor) {
+    public void setValor(double valor) {
         if (valor > 0) {
             this.valor = valor;
         } else {
@@ -120,16 +120,15 @@ public class Conta implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 43 * hash + Objects.hashCode(this.id);
-        hash = 43 * hash + Objects.hashCode(this.titulo);
-        hash = 43 * hash + Objects.hashCode(this.descricao);
-        hash = 43 * hash + Objects.hashCode(this.tipo);
-        hash = 43 * hash + (int) (this.valor ^ (this.valor >>> 32));
-        hash = 43 * hash + Objects.hashCode(this.dtCriacao);
-        hash = 43 * hash + Objects.hashCode(this.dtVencimento);
-        hash = 43 * hash + (this.quitado ? 1 : 0);
-        hash = 43 * hash + Objects.hashCode(this.categoria);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.titulo);
+        hash = 37 * hash + Objects.hashCode(this.descricao);
+        hash = 37 * hash + Objects.hashCode(this.tipo);
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.valor) ^ (Double.doubleToLongBits(this.valor) >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.dtCriacao);
+        hash = 37 * hash + Objects.hashCode(this.dtVencimento);
+        hash = 37 * hash + (this.quitado ? 1 : 0);
+        hash = 37 * hash + Objects.hashCode(this.categoria);
         return hash;
     }
 

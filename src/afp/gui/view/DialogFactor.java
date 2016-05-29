@@ -202,7 +202,7 @@ public class DialogFactor {
                 lbErro.setText("A data da compra não pode ser depois da data de vencimento!");
                 event.consume();
 
-            } else if ((Long.parseLong(txValor.getText())) < 0) {
+            } else if ((Double.parseDouble(txValor.getText())) < 0) {
 
                 lbErro.setText("A conta não pode ter um valor negativo");
                 event.consume();
@@ -223,7 +223,7 @@ public class DialogFactor {
                     c.setDescricao(txDescricao.getText());
                     c.setTipo(cbbTipo.getValue());
                     c.setCategoria(cbbCategoria.getValue());
-                    c.setValor(Long.parseLong(txValor.getText()));
+                    c.setValor(Double.parseDouble(txValor.getText()));
                     c.setDtCriacao(dtData.getValue());
                     c.setDtVencimento(dtVencimento.getValue());
                     c.setQuitado(chQuitado.isSelected());
@@ -242,9 +242,9 @@ public class DialogFactor {
                         conta.setTipo(cbbTipo.getValue());
                         conta.setCategoria(cbbCategoria.getValue());
                         if (parcelas > 1) {
-                            conta.setValor((Long.parseLong(txValor.getText()) / parcelas));
+                            conta.setValor((Double.parseDouble(txValor.getText()) / parcelas));
                         } else {
-                            conta.setValor(Long.parseLong(txValor.getText()));
+                            conta.setValor(Double.parseDouble(txValor.getText()));
                         }
                         conta.setDtCriacao(dtData.getValue());
                         conta.setDtVencimento(dtVencimento.getValue().plusMonths(i));

@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS contas(
     descricao VARCHAR(300),
     cat_id INT NOT NULL,
     tipo VARCHAR(7) NOT NULL,
-    valor LONG NOT NULL,
+    valor DOUBLE NOT NULL,
     dt_criacao DATE NOT NULL,
     dt_vencimento DATE NOT NULL,
     quitado BOOL NOT NULL,

@@ -242,7 +242,15 @@ public class DialogFactor {
                         conta.setTipo(cbbTipo.getValue());
                         conta.setCategoria(cbbCategoria.getValue());
                         if (parcelas > 1) {
-                            conta.setValor((Double.parseDouble(txValor.getText()) / parcelas));
+                            double valor = (Double.parseDouble(txValor.getText()));
+                            double valorDaParcela = valor / parcelas;
+                            double excedente = valor - (valorDaParcela * parcelas);
+                            
+                            if (i==0){
+                                conta.setValor(valorDaParcela+excedente);
+                            }else{
+                                conta.setValor(valorDaParcela);
+                            }
                         } else {
                             conta.setValor(Double.parseDouble(txValor.getText()));
                         }
